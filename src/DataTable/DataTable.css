@@ -1,0 +1,616 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.truncate {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.grid-view{
+    background-color: hsl(0,0%,97%);
+    /*-webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;*/
+    border-color: inherit;
+    position: relative;
+    width: 100%;
+    /*height: calc(100vh - 32px);*/
+    height: 100%;
+    border-top: 1px solid #e2e2e2;
+}
+
+.z-modal-content .grid-view{
+    height: 100%;
+}
+
+
+.grid-view .pane-container .pane {
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    right: 0;
+}
+
+
+.grid-view .pane-container {
+    position: absolute;
+    font-size: 13px;
+    top: 0px;
+    bottom: 64px;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    overflow: auto;
+    opacity: 1;
+    border-color: inherit;
+    overscroll-behavior-x: none;
+    height: calc(100% - 32px);
+}
+
+.z-modal-content .grid-view .pane-container{
+    bottom: 18px;
+    margin-bottom: 14px;
+}
+
+.grid-view .pane-container .grid-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 16px;
+    border-color: inherit;
+}
+
+.grid-container .zbutton {
+    border: 1px solid #d1d1d1;
+    padding: 3px 4px;
+    border-radius: 6px;
+    background: #d1d1d1;
+    color: #fff;
+    font-size: 12px;
+}
+
+.grid-container .zbutton:hover {
+    background: #ff9b0499;
+}
+
+.grid-view .pane-container .left-pane,
+.grid-view .pane-container .right-pane {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.grid-view .pane-container .left-pane{
+    position: sticky;
+    /*border-right: 1px solid #d1d1d1;*/
+}
+.grid-view .pane-container .left-pane {
+    left: 0;
+    overflow: visible;
+    z-index: 9;
+}
+.grid-view .pane-container .right {
+    left: 0;
+    overflow: visible;
+    z-index: 8;
+}
+
+
+.grid-view .pane-container .pane.header-left-pane {
+    position: sticky;
+    height: 32px;
+    top: 0;
+    z-index: 3;
+    overflow: visible;
+    /*background-color: #f2f2f2;*/
+}
+.grid-view .pane-container .pane.header-right-pane {
+    position: sticky;
+    height: 32px;
+    top: 0;
+    z-index: 3;
+    overflow: visible;
+    /*background-color: hsla(0,0%,100%,0.5);
+    border-bottom: 1px solid hsl(202,10%,88%);
+    border-right: 1px solid hsl(202,10%,88%);*/
+    width: 100%;
+}
+
+.headerRow .contentWrapper{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
+    font-family: inherit;
+    font-size: 13px;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+
+.headerRow .contentWrapper .dataWrapper{
+    position: absolute;
+    left: 0px;
+    right: 22px;
+    top: 7px;
+    display: block;
+    vertical-align: top;
+    height: 16px;
+    line-height: 16px;
+}
+.headerRow .contentWrapper .dataWrapper .data{
+    position: absolute;
+    left: 7px;
+    right: 0px;
+    top: -2px;
+}
+
+.grid-view .pane-container .right-pane{
+    right: 0;
+    overflow: visible;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    /*overflow: auto;*/
+}
+
+
+.divider-pane {
+    position: absolute;
+    top: 32px;
+    bottom: 0;
+    width: 6px;
+    z-index: 4;
+    opacity: 0;
+    overflow: visible;
+}
+
+.divider-pane .line {
+    height: 100%;
+    width: 2px;
+    background: #aaa;
+}
+
+.divider-pane .dragHandle {
+    transform: translate(-50%, -50%);
+    margin-left: 1px;
+    border-radius: 10px;
+    width: 6px;
+    height: 26px;
+    background: #2d7ff9;
+    position: absolute;
+    z-index: 4;
+}
+
+.grid-view .pane-container .pane.header-left-pane .pane-content {
+    height: 32px;
+}
+
+.header-pane{
+    height: 32px;
+    top: 0;
+    z-index: 1;
+    overflow: visible;
+    position: relative;
+    background-color: hsla(0,0%,100%,0.5);
+    border-bottom: 1px solid hsl(202,10%,88%);
+}
+
+.header-row{
+    top: 0;
+    position: absolute;
+    left: 0;
+    height: 32px;
+    z-index: 2;
+}
+
+.header-row .cell .contentWrapper {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #333333;
+    position: relative;
+    font-family: inherit;
+    font-size: 13px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.cell {
+    position: absolute;
+    font-size: 13px;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    color: #111111;
+    cursor: default;
+    outline: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.grid-view .headerRow .cell{
+    position: absolute;
+    top: 0;
+    vertical-align: top;
+    display: inline-block;
+    /*background-color: #f5f5f5;*/
+    /*border-bottom: 1px solid hsl(0,0%,82%);*/
+    border-top: none;
+    /*border-left: 1px solid hsl(202,10%,88%);*/
+    padding-top: 2px;
+}
+
+.headerRow.rightPane>.cell:last-child {
+    /*box-shadow: 1px 0 hsl(202deg 10% 88%);*/
+}
+
+.grid-view .headerRow .staticCell {
+    position: absolute;
+    /*background-color: #f5f5f5;*/
+    /*border-bottom: 1px solid hsl(0,0%,82%);*/
+    height: 32px;
+}
+
+.grid-view .headerRow .staticCell .rowNumber {
+    margin-left: 200px;
+    /*width: 35px;*/
+    height: 32px;
+    cursor: default;
+    border-left: none;
+    border-right: none;
+    position: relative;
+}
+
+.grid-view .headerRow .staticCell .rowNumber .checkbox {
+    /*display: flex;*/
+    width: 32px;
+    height: 32px;
+    border-radius: 2px;
+    /*background: #ffffff;*/
+    /*border: 1px solid #95a0a6;*/
+}
+
+.grid-view .pane-container .pane.dataLeftPane {
+    top: 32px;
+    bottom: 0;
+    z-index: 2;
+    /*background-color: #f9f9f9;*/
+}
+
+.grid-view .pane-container .pane.dataRightPane {
+    top: 32px;
+    bottom: 0;
+    z-index: 0;
+    width: fit-content;
+}
+
+.grid-view .pane-container .pane .paneInnerContent {
+    position: relative;
+}
+
+.grid-view .dataRow {
+    display: block;
+    position: absolute;
+    left: 0;
+    margin-bottom: 0;
+    opacity: 1;
+    width: 100%;
+    height: 32px;
+}
+
+.grid-view .dataRow .staticCellContainer {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    width: 44px;
+    height: 32px;
+    /*border-bottom: 1px solid hsl(202,10%,88%);*/
+    font-size: 0;
+}
+
+.grid-view .dataRow .rowNumber {
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol',sans-serif;
+    font-weight: 400;
+    position: relative;
+    display: inline-block;
+    border-left: none;
+    border-right: none;
+    color: #707070;
+    text-align: center;
+    /*width: 35px;*/
+    height: 31px;
+    z-index: 2;
+    font-size: 12px;
+}
+
+.grid-view .dataRow .rowNumber .numberText {
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 7px;
+    font-variant-numeric: tabular-nums;
+}
+
+.grid-view .dataRow .rowNumber .checkbox {
+    top: 7px;
+    left: 10px;
+    z-index: 2;
+    position: absolute;
+}
+
+.grid-view .dataRow .rowNumber .checkbox > input{
+    color: #fe8640;
+}
+
+.grid-view .dataRow .rowNumber .checkbox > input:focus{
+    outline: none;
+    box-shadow: none;
+}
+.grid-view .dataRow.hover .rowNumber .checkbox {
+    display: inline-block;
+}
+.grid-view .dataRow.selected .rowNumber .checkbox{
+    display: inline-block!important;
+}
+
+.grid-view .dataRow.hover .rowNumber .checkbox input{
+    cursor: pointer;
+}
+
+.dataRow:not(.header) .cell {
+    border-top: none;
+    top: 0;
+    opacity: 1;
+    overflow: hidden;
+}
+.grid-view .dataRightPane .dataRow:not(.header) .cell:last-child {
+    /*box-shadow: 1px 0 0 0 hsl(202deg 10% 88%);*/
+}
+
+.grid-view .dataRow .expandRowCell {
+    position: relative;
+    right: 5px;
+    display: inline-block;
+    height: 100%;
+    width: 25px;
+    cursor: pointer;
+    border-left: none;
+    text-decoration: none;
+    vertical-align: top;
+    font-size: 11px;
+}
+
+.grid-view .dataRow a.expandRowCell {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #fe8640;
+    /*color: hsl(0,0%,75%);*/
+    display: none;
+    position: absolute;
+    width: 20px;
+    height: 100%;
+    left: 14px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.grid-view .dataRow.hover a.expandRowCell,
+.dataRow.hover  a.expandRowCell {
+    display: flex;
+}
+
+.grid-view .dataRow a.expandRowCell:hover i{
+    background: rgba(254, 134, 64, 0.22);
+    padding: 6px;
+    border-radius: 50%;
+}
+
+
+*:focus-visible{
+    outline: none!important;
+}
+
+.dataRow.odd .cell,
+.dataRow.odd .staticCellContainer{
+    background: #f8f8f8;
+}
+
+.dataRow.hover .cell,
+.dataRow.hover .staticCellContainer{
+    /*box-shadow:*/
+    /*        inset 0px 11px 0px -10px rgb(255 133 51/1),*/
+    /*        inset 0px -11px 0px -10px rgb(255 133 51/1)!important;*/
+    background: #464646!important;
+}
+
+.dataRow.contextMenu .cell,
+.dataRow.contextMenu .staticCellContainer{
+    box-shadow:
+            inset 0px 11px 0px -10px rgb(255 133 51/1),
+            inset 0px -11px 0px -10px rgb(255 133 51/1)!important;
+    background: #3030301a;
+}
+
+.dataRow.selected .cell,
+.dataRow.selected .staticCellContainer{
+    background: #bbe7c6!important;
+}
+
+.grid-header{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    line-height: 32px;
+    border-bottom: 1px solid hsl(0,0%,82%);
+}
+
+.grid-footer{
+    position: absolute;
+    /*bottom: 32px;*/
+    bottom: 0;
+    width: 100%;
+    line-height: 31px;
+    padding: 4px 5px;
+}
+
+.z-modal-content .grid-footer{
+    z-index: 9;
+    bottom: 0px;
+}
+
+
+.zLoading{
+    position: absolute;
+    overflow: hidden;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.6);
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.zLoading .loadText {
+    display: flex;
+    gap: 2px;
+    background: #fff;
+    padding: 5px 10px;
+    border: 1px solid #D4D4D4;
+    font-size: 13px;
+    color: #6c6c6c;
+    margin-top: -10%;
+}
+.zloader,
+.zloader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+.zloader {
+    margin: 0px auto;
+    margin-right: 0.25rem;
+    font-size: 2px;
+    display: inline-block;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(255,133,51, 0.2);
+    border-right: 1.1em solid rgba(255,133,51, 0.2);
+    border-bottom: 1.1em solid rgba(255,133,51, 0.2);
+    border-left: 1.1em solid #ff8533;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.filterBoxContent{
+    left: 10px;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+
+.cell.activeExpand:active {
+    z-index: 999!important;
+    height: auto;
+    border: 2px solid #FB8332;
+    overflow-y: auto;
+    width: min-content!important;
+}
+
+.cell.activeExpand:active .cell-wrap {
+    flex-wrap: wrap;
+}
+
+
+.zhandle:active,
+.zhandle:hover {
+    border-right: 3px solid rgba(253, 84, 22, 0.2);
+}
+
+.zhandle {
+    position: absolute;
+    height: 32px;
+    width: 8px;
+    right: 0px;
+    z-index: 9999;
+    top: 0px;
+    cursor: col-resize;
+}
+.zhandle.drag:after {
+    position: fixed;
+    width: 5px;
+    height: 832px;
+    border-right: 1px dotted #bdbdbd;
+    content: ' ';
+    z-index: 999;
+    /*margin-left: 4px;*/
+}
+
+
+.card-view .card-cell{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
+}
