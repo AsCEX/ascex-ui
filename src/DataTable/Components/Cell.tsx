@@ -25,12 +25,11 @@ interface CellProps {
 const Cell = ({ header, item }: CellProps) => {
   const filter = (
       data: number | string,
-      row: unknown,
+      row: any,
       header: Header = {} as Header,
-      render: ((data: unknown, row: unknown, header: unknown) => React.ReactNode) | undefined
+      render: ((data: any, row: any, header: any) => React.ReactNode) | undefined
   ): React.ReactNode => {
     const type = header.type ?? "";
-    console.log(type);
     switch (type) {
       case "currency": {
         const min : number = header.min ?? 0;
@@ -59,10 +58,10 @@ const Cell = ({ header, item }: CellProps) => {
         return data ? accounting.formatMoney(data) : "";
       case "date": {
         const dateF = data ? moment(data).format("L") : "";
-        return <div className={"grow text-right"}>{dateF}</div>;
+        return <div className={"grow text-right p-2"}>{dateF}</div>;
       }
       case "datetime": {
-        return data ? moment(data).format("L LT") : "";
+        return data ? <div className={"p-2"}>{moment(data).format("L LT")}</div> : "";
       }
       case "badge": {
         let label = data;
@@ -92,7 +91,7 @@ const Cell = ({ header, item }: CellProps) => {
         return render ? render(data, row, header) : '';
       }
       default:
-        return data;
+        return <div className={"p-2"}>{data}</div>;
     }
   };
 
@@ -113,7 +112,7 @@ const Cell = ({ header, item }: CellProps) => {
         "cell primary read group-[.even]:bg-table-bg group-[.odd]:bg-table-bg-odd group-[.even]:dark:bg-table-bg-dark group-[.odd]:dark:bg-table-bg-odd-dark text-table-header-text-color-dark dark:text-table-header-text-color-dark border-b-[1px] border-b-slate-200 dark:border-b-table-border-color border-l-[1px] border-l-slate-200 dark:border-l-table-border-color"
       }
     >
-      <div className="flex-auto" style={{ padding: 6 }}>
+      <div className="flex-auto" style={{ padding: 0 }}>
         <div
           className={
             "w-full flex line-height-4 whitespace-nowrap cell-wrap text-xs " +
