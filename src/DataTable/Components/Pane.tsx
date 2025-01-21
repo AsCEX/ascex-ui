@@ -1,7 +1,7 @@
 import Row from "./Row";
 
 interface PaneProps {
-    items: any[],
+    items: unknown[],
     name: string,
     side: string,
     width: string | number

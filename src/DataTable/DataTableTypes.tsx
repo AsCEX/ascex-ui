@@ -9,7 +9,9 @@ export interface HeaderTypes {
     key?: string,
     width?: number,
     left?: number,
-    showMenu?: boolean
+    showMenu?: boolean,
+    type?: string,
+    render?: (data: unknown, row: unknown) => ReactNode,
 }
 
 export interface DataTableOptionTypes {

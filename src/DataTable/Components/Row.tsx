@@ -5,7 +5,7 @@ import React from "react";
 interface RowProps {
     index: number,
     isEven: boolean,
-    item: unknown[],
+    item: unknown,
     side: string
 }
 

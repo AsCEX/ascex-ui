@@ -154,8 +154,12 @@ function App() {
                   label: 'Username',
               },
               {
-                  name: 'age',
-                  label: 'Age'
+                  name: 'action',
+                  label: 'Action',
+                  type:  'custom',
+                  render: () => {
+                      return <>AsCEX</>
+                  }
               }
           ]}
           options={{

@@ -2,13 +2,13 @@ import Pane from "../Components/Pane";
 import Header from "./Header";
 import useDataTable from "../Utils/useDataTable.jsx";
 
-import debounce from "lodash.debounce";
+// import debounce from "lodash.debounce";
 
 function Body() {
 
     const {
         items,
-        name,
+        // name,
         options,
     } = useDataTable();
 
@@ -20,7 +20,7 @@ function Body() {
         scrollXRef
     } = options ?? {};
 
-    const setScroll = debounce( (e) => {
+    /*const setScroll = debounce( (e) => {
         const siteSettings = JSON.parse( sessionStorage.getItem('site_settings') ?? '' );
 
         const _scrollLeft = siteSettings?.scrollLeft ?? {};
@@ -28,11 +28,15 @@ function Body() {
         const updateSettings = {...siteSettings, scrollLeft: _scrollLeft};
 
         sessionStorage.setItem("site_settings", JSON.stringify(updateSettings));
-    }, 500);
+    }, 500);*/
 
     return (
         <>
-            <div ref={scrollXRef} className="pane-container" onScroll={(e) => setScroll(e)}>
+            <div
+                ref={scrollXRef}
+                className="pane-container"
+                 // onScroll={(e) => setScroll(e)}
+            >
                 <div className="grid-container" style={{width: contentWidth + leftPaneWidth}}>
                     <div className="left-pane border-r-[1px] border-r-slate-200 dark:border-r-table-border-color" style={{width: leftPaneWidth, height: (items?.length + 1) * rowHeight}}>
                         <Header className={"header-left-pane"} />

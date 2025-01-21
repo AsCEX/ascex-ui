@@ -1,6 +1,7 @@
 import React from "react";
 import accounting from "accounting";
 import moment from "moment";
+import {JSONPath} from 'jsonpath-plus';
 
 // Define types for header and item
 interface Header {
@@ -23,12 +24,13 @@ interface CellProps {
 
 const Cell = ({ header, item }: CellProps) => {
   const filter = (
-    data: number | string,
-    row: unknown,
-    header: Header = {} as Header,
-    render: (data: number | string, row: unknown, header: unknown) => React.ReactNode = () => null
+      data: number | string,
+      row: unknown,
+      header: Header = {} as Header,
+      render: ((data: unknown, row: unknown, header: unknown) => React.ReactNode) | undefined
   ): React.ReactNode => {
     const type = header.type ?? "";
+    console.log(type);
     switch (type) {
       case "currency": {
         const min : number = header.min ?? 0;
@@ -87,12 +89,17 @@ const Cell = ({ header, item }: CellProps) => {
         );
       }
       case "custom": {
-        return render(data, row, header);
+        return render ? render(data, row, header) : '';
       }
       default:
         return data;
     }
   };
+
+  const getValue = (name: string, item: any) => {
+    const matches = JSONPath({path: name, json: item});
+    return matches.length > 0 ? matches[0] : null;
+  }
 
   return (
     <div
@@ -119,9 +126,10 @@ const Cell = ({ header, item }: CellProps) => {
           }}
         >
           {filter(
-            eval("item." + header.name),
+              getValue(header.name, item),
             item,
-            header ?? ({} as Header)
+            header ?? ({} as Header),
+            header.render ?? undefined
           )}
         </div>
       </div>
