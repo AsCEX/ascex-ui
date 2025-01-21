@@ -1,24 +1,31 @@
-import useDataTable from "./Utils/useDataTable";
-import { useState, useRef, useEffect } from "react";
+// import useDataTable from "./Utils/useDataTable";
+import { useState, useRef } from "react";
+import { HeaderTypes } from "./DataTableTypes";
 
-function DataTableHeader( props: any ){
+interface DataTableHeaderProps {
+  column?: number,
+  className?: string,
+  options?: HeaderTypes
+}
+
+function DataTableHeader( props : DataTableHeaderProps ){
 
   const dropdownRef = useRef(null);
-  const searchInput = useRef(null);
-  const colResizeRef = useRef(null);
-  const colResizeStart = useRef(-1);
+  // const searchInput = useRef(null);
+  // const colResizeRef = useRef(null);
+  // const colResizeStart = useRef(-1);
 
-  const [loaded, setLoaded] = useState(false);
-  const [isOpen, ] = useState(false)
-  const [sort, setSort] = useState(0);
-  const [search, setSearch] = useState("");
-  const [options, ] = useState(props.options);
-  const columnSearch = false;
-  const {
-    resizable
-  } = useDataTable();
+  // const [loaded, setLoaded] = useState(false);
+  // const [isOpen, ] = useState(false)
+  // const [sort, setSort] = useState(0);
+  // const [search, setSearch] = useState("");
+  const [options, ] = useState(props?.options);
+  // const columnSearch = false;
+  // const {
+  //   resizable
+  // } = useDataTable();
 
-  const [ , setListening] = useState(false)
+  // const [ , setListening] = useState(false)
   /* useEffect(() => {
     if(props.options?.searchable || props.options?.sortable){
         // document.addEventListener(`click`, documentClick);
@@ -83,7 +90,7 @@ function DataTableHeader( props: any ){
     // }
   } */
 
-  useEffect(() => {
+  /*useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if(loaded){
         if( typeof props.changeSearch !== "undefined"){
@@ -99,41 +106,41 @@ function DataTableHeader( props: any ){
 
     return () => clearTimeout(delayDebounceFn);
 
-  }, [search]);
+  }, [search]);*/
 
-  useEffect( () => {
+  /*useEffect( () => {
     setLoaded(true);
 
     return () => {
       setListening(false);
     }
-  }, []);
+  }, []);*/
 
-  const toggle = () => { console.log('toggle');
+  /*const toggle = () => { console.log('toggle');
     if( (props.options.showMenu ?? true) && colResizeStart.current == -1){
       // setIsOpen(!isOpen);
     }
+  }*/
+
+  /*
+    const handleSort = ( i: number ) => {
+      if( i === sort){
+        setSort(0);
+        props.changeSort({
+          name: props.options.name,
+          value: undefined,
+          type: props.options.type ?? "string"
+        });
+      }else{
+        setSort(i);
+        props.changeSort({
+          name: props.options.name,
+          value: (i == 1) ? "asc" : "desc",
+          type: props.options.type ?? "string"
+        });
+      }
   }
-
-
-  const handleSort = ( i: any ) => {
-    if( i === sort){
-      setSort(0);
-      props.changeSort({
-        name: props.options.name,
-        value: undefined,
-        type: props.options.type ?? "string"
-      });
-    }else{
-      setSort(i);
-      props.changeSort({
-        name: props.options.name,
-        value: (i == 1) ? "asc" : "desc",
-        type: props.options.type ?? "string"
-      });
-    }
-  }
-
+*/
 
   return (
     <div
@@ -143,32 +150,34 @@ function DataTableHeader( props: any ){
       "border-l-[1px] border-l-slate-200 dark:border-l-table-border-color-dark " +
       "border-b-[1px] border-b-slate-200 dark:border-b-table-border-color-dark " +
       "relative z-10 " + props.className}
-      style={{ left: options.left -1, width: options.width ?? 177, minWidth: options.width ?? 177 }}
+      style={{ left: (options?.left ?? 0) -1, width: options?.width ?? 177, minWidth: options?.width ?? 177 }}
       ref={dropdownRef}
     >
-      <div className="contentWrapper relative cursor-pointer group zheader" onClick={ () => toggle() }>
-        { (sort > 0 || search !== "") &&
+      <div className="contentWrapper relative cursor-pointer group zheader"
+           // onClick={ () => toggle() }
+      >
+        {/*{ (sort > 0 || search !== "") &&
         <span className="absolute bottom-0 flex h-[1px] w-full">
           <span className="animate-pulse absolute inline-flex h-full w-full bg-orange-200 opacity-75"></span>
           <span className="relative inline-flex h-full w-full bg-orange-300"></span>
-        </span> }
+        </span> }*/}
         <div className="dataWrapper">
                   <span className="data">
                     <div className="text-xs line-height-4 font-family-default font-weight-default truncate">
-                      {options.label}
+                      {options?.label}
                     </div>
-                    { (options?.searchable || options?.sortable) &&
+                    {/*{ (options?.searchable || options?.sortable) &&
                     <div className={"absolute right-[-12px] top-[2px] cursor-pointer text-[#ffbe99] group-hover:text-[#fe8640]"}><i className={"fa fa-ellipsis-v"}></i></div>
-                    }
+                    }*/}
                   </span>
         </div>
 
       </div>
-      {( resizable ) &&
+      {/*{( resizable ) &&
       <div className={"zhandle"} ref={colResizeRef}></div>
-      }
+      }*/}
 
-      { isOpen && columnSearch &&
+     {/* { isOpen && columnSearch &&
         <div
           className="zHeaderMenu absolute left-0 top-6 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1}
         >
@@ -222,7 +231,7 @@ function DataTableHeader( props: any ){
               </div>
             }
           </div>
-        </div>}
+        </div>}*/}
 
     </div>
   );

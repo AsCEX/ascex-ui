@@ -48,7 +48,7 @@ function Header( {
 
                         return <DataTableHeader
                             key={name + '_hl_' + i}
-                            columnIndex={i}
+                            // columnIndex={i}
                             options={header}
                             // show={false}
                             // columnSearch={false}

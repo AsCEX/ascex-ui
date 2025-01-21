@@ -7,7 +7,7 @@ interface GripProps {
 
 const Grid = ({children}: GripProps) => {
     const { height } = useDataTable();
-    console.log('hee', height);
+    
     // style={ (height) ? {height: height} : {}}
     return (
         <>

@@ -1,11 +1,15 @@
 import {ReactNode, RefObject} from "react";
 
 export interface HeaderTypes {
+    className?: string,
+    columnIndex?: number,
     name: string,
     label?: string,
     freeze?: boolean,
+    key?: string,
     width?: number,
     left?: number,
+    showMenu?: boolean
 }
 
 export interface DataTableOptionTypes {
@@ -21,6 +25,7 @@ export interface DataTableOptionTypes {
 }
 
 export interface DataTableContextProps {
+    className?: string,
     children?: ReactNode,
     footer?: ReactNode,
     headers: HeaderTypes[],
