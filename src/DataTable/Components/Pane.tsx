@@ -15,7 +15,6 @@ function Pane({items, name, side, width = "auto"}: PaneProps) {
                 className={`${name}InnerContent paneInnerContent`}
                 style={{
                     width: width,
-                    height: 96,
                     transform: 'translate3d(0px, 0px, 0px)',
                 }}
             >

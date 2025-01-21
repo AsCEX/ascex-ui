@@ -3,11 +3,110 @@ import { DataTable } from './main'
 function App() {
   return (
     <>
-    <h1>Vite + React</h1>
-    <div className="card">
-      <DataTable 
+    <div className="card flex flex-col h-screen w-full bg-red-400">
+      <DataTable
           name={"dt-products"}
           items={[
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3',
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
+              {
+                  name: 'Zion',
+                  username: 'zzzz',
+                  age: '3'
+              },
               {
                   name: 'Zion',
                   username: 'zzzz',
@@ -18,18 +117,50 @@ function App() {
           headers={[
               {
                   name: 'name',
-                  label: 'Member'
+                  label: 'Member',
+                  freeze: true
               },
               {
                   name: 'username',
-                  label: 'Username'
+                  label: 'Username',
+                  freeze: true
+              },
+              {
+                  name: 'age',
+                  label: 'Age'
+              },
+              {
+                  name: 'name',
+                  label: 'Member',
+              },
+              {
+                  name: 'username',
+                  label: 'Username',
+              },
+              {
+                  name: 'age',
+                  label: 'Age'
+              },
+              {
+                  name: 'age',
+                  label: 'Age'
+              },
+              {
+                  name: 'name',
+                  label: 'Member',
+              },
+              {
+                  name: 'username',
+                  label: 'Username',
               },
               {
                   name: 'age',
                   label: 'Age'
               }
           ]}
-          resizable={true}
+          options={{
+              resizable: true
+          }}
       />
     </div>
     </>

@@ -1,35 +1,38 @@
-import { ReactNode } from "react";
-import DataTableProvider from "./DataTableProvider";
-import {isMobile} from "react-device-detect";
+import {createContext} from "react";
+import {DataTableContextProps} from "@components/DataTable/DataTableTypes";
 
 const defaultLeftPaneWidth = 48;
 
-interface DataTableContextProps {
-    children?: ReactNode,
-    context?: any,
-    headers?: any[],
-    initHeaders?: any,
-    items?: any
-}
+// eslint-disable-next-line react-refresh/only-export-components
+export const DataTableContext = createContext<DataTableContextProps>({} as DataTableContextProps);
 
+export const DataTableProvider = ({ children, options, headers, items, height, name }: DataTableContextProps) => {
 
-export default function DataTableContext({ children, context, headers: initHeaders = [], items }: DataTableContextProps) {
+    // const tableOptions = {
+    //     freezePane: 1,
+    //
+    // }
 
     const buildHeaders = () => {
-
         let left = 0;
         let freezeLeft = defaultLeftPaneWidth;
-        let freezeWidth = isMobile ? defaultLeftPaneWidth : 0;
+        let freezeWidth = 0;
         let width = 0;
-        let freezePane = isMobile ? 0 : 1;
+        let freezePane = 0;
         const _headers = [];
 
-        if (!initHeaders || initHeaders?.length === 0) {
+        if (!headers || headers?.length === 0) {
             console.error('Table Columns must be defined.');
         }
 
-        for(let i=0;i<initHeaders.length;i++){
-            const header = initHeaders[i];
+        headers.map((header) => {
+            if (header.freeze) {
+                freezePane++;
+            }
+        });
+
+        for(let i=0;i<headers.length;i++){
+            const header = headers[i];
 
             if (i >= freezePane) {
                 left = left + width;
@@ -52,29 +55,50 @@ export default function DataTableContext({ children, context, headers: initHeade
         let contentWidth = 0;
         let leftPaneWidth = defaultLeftPaneWidth;
 
-        initHeaders.map((header, i) => {
-            if ((i === 0 || header.freeze) && !isMobile) {
-                leftPaneWidth += header.width;
+        headers.map((header, i: number) => {
+            if ((i === 0 || header.freeze)) {
+                leftPaneWidth += header.width ?? 0;
             }else{
-                contentWidth += header.width;
+                contentWidth += header.width ?? 0;
             }
         });
 
         return {
-            headers: _headers,
+            headers,
+            height,
             freezePane,
             contentWidth,
             leftPaneWidth
         };
     }
 
-    const headerData = buildHeaders();
+    const {
+        headers: _headers,
+        height: _height,
+        freezePane,
+        contentWidth,
+        leftPaneWidth
+    } = buildHeaders();
+
 
     const tableData = {
-        ...context,
-        ...headerData,
+        name,
+        options: {
+            ...options,
+            contentWidth,
+            height: _height,
+            freezePane: freezePane ?? 0,
+            leftPaneWidth: leftPaneWidth ?? 0,
+            paddingLeft: leftPaneWidth,
+            paddingWidth: 80,
+            rowHeight: 32,
+            rowNumberWidth: 48
+        },
+        headers: _headers,
         items,
+        rowNumberWidth: 48
     };
 
-    return <DataTableProvider context={tableData}>{children}</DataTableProvider>;
+
+    return <DataTableContext.Provider value={tableData}>{children}</DataTableContext.Provider>;
 }

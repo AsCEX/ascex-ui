@@ -1,10 +1,11 @@
 import Cell from "./Cell";
 import useDataTable from "../Utils/useDataTable";
+import React from "react";
 
 interface RowProps {
     index: number,
     isEven: boolean,
-    item: any,
+    item: unknown[],
     side: string
 }
 
@@ -15,35 +16,40 @@ function Row({
                   side = 'left',
               }: RowProps) {
 
-    const { headers, freezePane, rowNumberWidth } = useDataTable();
+    const { headers, options } = useDataTable();
+    const {
+        freezePane = 0,
+        rowNumberWidth = 0
+    } = options ?? {};
 
+    const rowHoverIn = (e: React.MouseEvent<HTMLElement>, side: string) => {
+        const target = e.target as HTMLElement;
+        const rowEl = target.closest(".dataRow");
+        const gridEl = target.closest(".grid-container");
+        const rowIndex = Array.prototype.indexOf.call(rowEl?.parentElement?.children, rowEl);
 
-    const rowHoverIn = (e: any, side: string) => {
-        const rowEl = e.target.closest(".dataRow");
-        const gridEl = e.target.closest(".grid-container");
-        const rowIndex = Array.prototype.indexOf.call(rowEl.parentElement.children, rowEl);
-
-        let pane = gridEl.querySelector('.pane.dataLeftPane > div');
+        let pane = gridEl?.querySelector('.pane.dataLeftPane > div');
         if( side === "left"){
-            pane = gridEl.querySelector('.pane.dataRightPane > div');
+            pane = gridEl?.querySelector('.pane.dataRightPane > div');
         }
 
-        rowEl.classList.add('hover')
-        pane.children.item(rowIndex).classList.add('hover');
+        rowEl?.classList.add('hover')
+        pane?.children.item(rowIndex)?.classList.add('hover');
     };
 
-    const rowHoverOut = (e: any, side: string) => {
-        const rowEl = e.target.closest(".dataRow");
-        const gridEl = e.target.closest(".grid-container");
-        const rowIndex = Array.prototype.indexOf.call(rowEl.parentElement.children, rowEl);
+    const rowHoverOut = (e: React.MouseEvent<HTMLElement>, side: string) => {
+        const target= e.target as HTMLElement;
+        const rowEl = target.closest(".dataRow");
+        const gridEl = target.closest(".grid-container");
+        const rowIndex = Array.prototype.indexOf.call(rowEl?.parentElement?.children, rowEl);
 
-        let pane = gridEl.querySelector('.pane.dataLeftPane > div');
+        let pane = gridEl?.querySelector('.pane.dataLeftPane > div');
         if( side === "left"){
-            pane = gridEl.querySelector('.pane.dataRightPane > div');
+            pane = gridEl?.querySelector('.pane.dataRightPane > div');
         }
 
-        rowEl.classList.remove('hover')
-        pane.children.item(rowIndex).classList.remove('hover');
+        rowEl?.classList.remove('hover')
+        pane?.children.item(rowIndex)?.classList.remove('hover');
     };
 
     return (
@@ -82,7 +88,7 @@ function Row({
                 </div>
             </div>
             }
-            {headers.map((header: any, i: number) => {
+            {headers.map((header, i: number) => {
                 if (i >= freezePane && side === 'left') return;
                 if (i < freezePane && side === 'right') return;
                 return <Cell

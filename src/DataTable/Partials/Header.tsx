@@ -11,7 +11,15 @@ function Header( {
     className,
     side = 'left'
 }: HeaderProps) {
-    const { contentWidth, paddingWidth, leftPaneWidth, freezePane, headers, rowNumberWidth  } = useDataTable();
+    const { headers, options } = useDataTable();
+
+    const {
+        contentWidth = 0,
+        freezePane = 0,
+        paddingWidth = 0,
+        leftPaneWidth,
+        rowNumberWidth = 0
+    } = options ?? {};
 
     return (
         <div className={"pane " + className} style={{width: (side === 'left') ? leftPaneWidth : contentWidth + paddingWidth}} >

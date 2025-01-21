@@ -7,14 +7,18 @@ import debounce from "lodash.debounce";
 function Body() {
 
     const {
-        contentWidth,
         items,
         name,
-        leftPaneWidth,
-        paddingWidth,
-        rowHeight,
-        scrollXRef
+        options,
     } = useDataTable();
+
+    const {
+        contentWidth = 0,
+        leftPaneWidth = 0,
+        paddingWidth = 0,
+        rowHeight = 0,
+        scrollXRef
+    } = options ?? {};
 
     const setScroll = debounce( (e) => {
         const siteSettings = JSON.parse( sessionStorage.getItem('site_settings') ?? '' );
@@ -44,9 +48,8 @@ function Body() {
                     <div className="right-pane border-r-[1px] border-r-slate-200 dark:border-r-table-border-color "
                         style={{
                             left: leftPaneWidth - 1,
-                            height:
-                                (items?.length + 1) * rowHeight,
                             width: contentWidth,
+                            height: (items?.length + 1) * rowHeight
                         }}
                     >
                         <Header className={"header-left-pane"} side={'right'}/>

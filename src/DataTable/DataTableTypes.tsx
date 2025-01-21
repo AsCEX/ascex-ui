@@ -1,3 +1,36 @@
+import {ReactNode, RefObject} from "react";
+
+export interface HeaderTypes {
+    name: string,
+    label?: string,
+    freeze?: boolean,
+    width?: number,
+    left?: number,
+}
+
+export interface DataTableOptionTypes {
+    contentWidth?: number,
+    freezePane?: number,
+    resizable?: boolean,
+    height?: number | string | null,
+    leftPaneWidth?: number,
+    rowHeight?: number,
+    rowNumberWidth?: number,
+    paddingWidth?: number,
+    scrollXRef?: RefObject<HTMLDivElement>
+}
+
+export interface DataTableContextProps {
+    children?: ReactNode,
+    footer?: ReactNode,
+    headers: HeaderTypes[],
+    height?: number | string,
+    loaded?: boolean,
+    name: string,
+    items: unknown[],
+    options?: DataTableOptionTypes,
+}
+
 const DataTableParams = {
     start: 0,
     length: 50,
@@ -28,21 +61,7 @@ const DataTableTypes = {
     url: ''
 };
 
-const DataTableContextMenuTypes = {
-    width: 220,
-    items: [],
-    contextMenuId: null,
-    row: {},
-    show: false,
-    xPos: 0,
-    yPos: 0,
-    offsetX: 0,
-    offsetY: 0
-};
-
-
 export {
-    DataTableContextMenuTypes,
     DataTableParams,
     DataTableTypes
 };

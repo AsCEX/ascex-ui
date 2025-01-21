@@ -5,39 +5,41 @@ import moment from "moment";
 // Define types for header and item
 interface Header {
   type?: string;
-  min?: number | any;
+  min?: number;
   width?: number;
   left?: number;
   className?: string;
   badgeClass?: string;
   name: string;
-  onClick?: (item: any) => void;
-  render?: (data: any, row: any, header: any) => React.ReactNode;
-  lists?: { id: any; text?: string; className?: string }[];
+  onClick?: (item: unknown) => void;
+  render?: (data: unknown, row: unknown, header: unknown) => React.ReactNode;
+  lists?: { id: unknown; text?: string; className?: string }[];
 }
 
 interface CellProps {
   header: Header;
-  item: Record<string, any>;
+  item: unknown
 }
 
 const Cell = ({ header, item }: CellProps) => {
   const filter = (
-    data: any,
-    row: any,
+    data: number | string,
+    row: unknown,
     header: Header = {} as Header,
-    render: (data: any, row: any, header: any) => React.ReactNode = () => null
+    render: (data: number | string, row: unknown, header: unknown) => React.ReactNode = () => null
   ): React.ReactNode => {
     const type = header.type ?? "";
     switch (type) {
       case "currency": {
-        const min = header.min;
+        const min : number = header.min ?? 0;
         let textColor = "";
         let html = "0.00";
 
         if (data) {
-          textColor = min === null ? (!isNaN(data) && data < 0 ? "text-red-500" : "") : "";
-          if (!isNaN(data) && !isNaN(min) && min !== null && data < min) {
+          if (typeof data === "number") {
+            textColor = min === null ? (!isNaN(data) && data < 0 ? "text-red-500" : "") : "";
+          }
+          if (!isNaN(data as number) && !isNaN(min as number) && min !== null) {
             data = min;
           }
 
@@ -58,8 +60,7 @@ const Cell = ({ header, item }: CellProps) => {
         return <div className={"grow text-right"}>{dateF}</div>;
       }
       case "datetime": {
-        const date = data ? moment(data).format("L LT") : "";
-        return date;
+        return data ? moment(data).format("L LT") : "";
       }
       case "badge": {
         let label = data;

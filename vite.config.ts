@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tsconfigPaths from "vite-tsconfig-paths"
 import dts from 'vite-plugin-dts';
 
 // https://vite.dev/config/
@@ -11,7 +12,8 @@ export default defineConfig({
       insertTypesEntry: true,
       rollupTypes: true,
       tsconfigPath: "./tsconfig.app.json",
-    })
+    }),
+    tsconfigPaths()
   ],
   build: {
     lib: {
