@@ -690,6 +690,7 @@ const SingleDatePicker = ({
 // ============================================================================
 
 interface RangeProps extends PickerProps {
+    applyOnClose?: boolean,
     presets?: DateRangePreset[]
     defaultValue?: DateRange
     value?: DateRange
@@ -697,6 +698,7 @@ interface RangeProps extends PickerProps {
 }
 
 const RangeDatePicker = ({
+                             applyOnClose,
                              defaultValue,
                              value,
                              onChange,
@@ -782,18 +784,24 @@ const RangeDatePicker = ({
         setRange(newRange)
     }
 
-    const onCancel = () => {
-        setRange(initialRange)
-        setStartTime(
-            initialRange?.from
-                ? new Time(initialRange.from.getHours(), initialRange.from.getMinutes())
-                : new Time(0, 0),
-        )
-        setEndTime(
-            initialRange?.to
-                ? new Time(initialRange.to.getHours(), initialRange.to.getMinutes())
-                : new Time(0, 0),
-        )
+    const onCancel = (event: React.MouseEvent<HTMLElement> | undefined = undefined ) => {
+
+        if( !applyOnClose && !event ){
+            setRange(range)
+            onChange?.(range)
+        }else{
+            setRange(initialRange)
+            setStartTime(
+                initialRange?.from
+                    ? new Time(initialRange.from.getHours(), initialRange.from.getMinutes())
+                    : new Time(0, 0),
+            )
+            setEndTime(
+                initialRange?.to
+                    ? new Time(initialRange.to.getHours(), initialRange.to.getMinutes())
+                    : new Time(0, 0),
+            )
+        }
         setOpen(false)
     }
 
@@ -889,8 +897,8 @@ const RangeDatePicker = ({
             return null
         }
 
-        return `${range.from ? formatDate(range.from, locale, showTimePicker) : ""} - ${
-            range.to ? formatDate(range.to, locale, showTimePicker) : ""
+        return `${range.from ? formatDate(range.from, locale, showTimePicker) : ""}${
+            range.to ? " - " + formatDate(range.to, locale, showTimePicker) : ""
         }`
     }, [range, locale, showTimePicker])
 

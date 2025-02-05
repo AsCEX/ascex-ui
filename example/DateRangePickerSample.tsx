@@ -61,7 +61,10 @@ export const DateRangePickerPresetsExample = () => {
             <DateRangePicker
                 presets={presets}
                 value={dateRange}
-                onChange={setDateRange}
+                onChange={(data) => {
+                    setDateRange(data);
+                    console.log('onsoaa');
+                }}
                 className="w-60"
             />
 
