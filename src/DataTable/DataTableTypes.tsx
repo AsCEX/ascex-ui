@@ -12,6 +12,7 @@ export interface HeaderTypes {
     showMenu?: boolean,
     type?: string,
     render?: (data: unknown, row: unknown) => ReactNode,
+    dateFormat?: string
 }
 
 export interface DataTableOptionTypes {

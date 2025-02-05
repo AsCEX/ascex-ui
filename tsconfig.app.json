@@ -7,8 +7,9 @@
     "module": "ESNext",
     "skipLibCheck": true,                             /* Specify the base directory to resolve non-relative module names. */
     "paths": {
-      "@components/*": ["./src/*"]
-    },      
+      "@components/*": ["./src/*"],
+      "@utils/*": ["./src/utils/*"],
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",

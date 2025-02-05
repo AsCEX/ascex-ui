@@ -17,10 +17,10 @@ import { format, type Locale } from "date-fns"
 import { enUS } from "date-fns/locale"
 import { tv, VariantProps } from "tailwind-variants"
 
-import { cx, focusInput, focusRing, hasErrorInput } from "@/lib/utils"
+import { cx, focusInput, focusRing, hasErrorInput } from "@utils/utils"
 
-import { Button } from "./Button"
-import { Calendar as CalendarPrimitive, type Matcher } from "./Calendar"
+import { Button } from "@components/Button/Button"
+import { Calendar as CalendarPrimitive, type Matcher } from "@components/Calendar/Calendar"
 
 //#region TimeInput
 // ============================================================================
@@ -150,7 +150,7 @@ TimeInput.displayName = "TimeInput"
 const triggerStyles = tv({
     base: [
         // base
-        "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate rounded-md border px-3 py-2 shadow-sm outline-none transition-all sm:text-sm",
+        "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate border px-3 py-2 shadow-sm outline-none transition-all sm:text-sm",
         // background color
         "bg-white dark:bg-gray-950",
         // border color
@@ -196,7 +196,7 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
                     {...props}
                 >
                     <RiCalendar2Fill className="size-5 shrink-0 text-gray-400 dark:text-gray-600" />
-                    <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-gray-900 dark:text-gray-50">
+                    <span className="flex-1 overflow-hidden text-xs text-ellipsis whitespace-nowrap text-left text-gray-900 dark:text-gray-50">
             {children ? (
                 children
             ) : placeholder ? (

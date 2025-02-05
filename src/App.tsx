@@ -1,9 +1,11 @@
 import { DataTable } from './main'
+import {DateRangePickerPresetsExample} from "../example/DateRangePickerSample.tsx";
 
 function App() {
   return (
     <>
     <div className="card flex flex-col h-screen w-full bg-red-400">
+        <DateRangePickerPresetsExample />
       <DataTable
           name={"dt-products"}
           items={[

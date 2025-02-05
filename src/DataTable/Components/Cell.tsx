@@ -15,6 +15,7 @@ interface Header {
   onClick?: (item: unknown) => void;
   render?: (data: unknown, row: unknown, header: unknown) => React.ReactNode;
   lists?: { id: unknown; text?: string; className?: string }[];
+  dateFormat?: string;
 }
 
 interface CellProps {
@@ -57,7 +58,8 @@ const Cell = ({ header, item }: CellProps) => {
       case "decimal":
         return data ? accounting.formatMoney(data) : "";
       case "date": {
-        const dateF = data ? moment(data).format("L") : "";
+        const dateFormat = header?.dateFormat ?? "L";
+        const dateF = data ? moment(data).format(dateFormat) : "";
         return <div className={"grow text-right p-2"}>{dateF}</div>;
       }
       case "datetime": {
