@@ -128,7 +128,7 @@ const DialogDescription = React.forwardRef<
     return (
         <AlertDialog.Description
             ref={forwardedRef}
-            className={cx("text-gray-500 dark:text-gray-500 p-4", className)}
+            className={cx("text-gray-500 dark:text-gray-500", className)}
             {...props}
         />
     )
