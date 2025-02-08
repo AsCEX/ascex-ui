@@ -17,7 +17,7 @@ import { format, type Locale } from "date-fns"
 import { enUS } from "date-fns/locale"
 import { tv, VariantProps } from "tailwind-variants"
 
-import { cx, focusInput, focusRing, hasErrorInput } from "@utils/utils"
+import { cx, focusInput, hasErrorInput } from "@utils/utils"
 
 import { Button } from "@components/Button/Button"
 import { Calendar as CalendarPrimitive, type Matcher } from "@components/Calendar/Calendar"
@@ -371,8 +371,6 @@ const PresetContainer = <TPreset extends Preset, TValue>({
                                 "text-gray-700 dark:text-gray-300",
                                 // border color
                                 "border-gray-200 dark:border-gray-800",
-                                // focus
-                                focusRing,
                                 // background color
                                 "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
                                 "hover:bg-gray-100 hover:dark:bg-gray-900",

@@ -1,7 +1,15 @@
-import { useIsMobile } from "@/lib/useMobile"
-import { cx, focusRing } from "@utils/"
-
-// This component is based on shadcn's sidebar component
+import { useIsMobile } from "@hooks/useMobile"
+import { cx } from "@utils/utils"
+import {
+    ComponentProps,
+    createContext,
+    CSSProperties,
+    forwardRef,
+    useCallback,
+    useContext,
+    useMemo,
+    useState
+} from "react";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -17,10 +25,10 @@ type SidebarContext = {
     toggleSidebar: () => void
 }
 
-const SidebarContext = React.createContext<SidebarContext | null>(null)
+const SidebarContext = createContext<SidebarContext | null>(null)
 
 function useSidebar() {
-    const context = React.useContext(SidebarContext)
+    const context = useContext(SidebarContext)
     if (!context) {
         throw new Error("useSidebar must be used within a SidebarProvider.")
     }
@@ -28,9 +36,9 @@ function useSidebar() {
     return context
 }
 
-const SidebarProvider = React.forwardRef<
+const SidebarProvider = forwardRef<
     HTMLDivElement,
-    React.ComponentProps<"div"> & {
+    ComponentProps<"div"> & {
     defaultOpen?: boolean
     open?: boolean
     onOpenChange?: (open: boolean) => void
@@ -49,11 +57,11 @@ const SidebarProvider = React.forwardRef<
         ref,
     ) => {
         const isMobile = useIsMobile()
-        const [openMobile, setOpenMobile] = React.useState(false)
+        const [openMobile, setOpenMobile] = useState(false)
 
-        const [_open, _setOpen] = React.useState(defaultOpen)
+        const [_open, _setOpen] = useState(defaultOpen)
         const open = openProp ?? _open
-        const setOpen = React.useCallback(
+        const setOpen = useCallback(
             (value: boolean | ((value: boolean) => boolean)) => {
                 const openState = typeof value === "function" ? value(open) : value
                 if (setOpenProp) {
@@ -67,7 +75,7 @@ const SidebarProvider = React.forwardRef<
             [setOpenProp, open],
         )
 
-        const toggleSidebar = React.useCallback(() => {
+        const toggleSidebar = useCallback(() => {
             return isMobile
                 ? setOpenMobile((open) => !open)
                 : setOpen((open) => !open)
@@ -75,7 +83,7 @@ const SidebarProvider = React.forwardRef<
 
         const state = open ? "expanded" : "collapsed"
 
-        const contextValue = React.useMemo<SidebarContext>(
+        const contextValue = useMemo<SidebarContext>(
             () => ({
                 state,
                 open,
@@ -103,7 +111,7 @@ const SidebarProvider = React.forwardRef<
                         {
                             "--sidebar-width": SIDEBAR_WIDTH,
                             ...style,
-                        } as React.CSSProperties
+                        } as CSSProperties
                     }
                     className={cx("flex min-h-svh w-full", className)}
                     ref={ref}
@@ -115,3 +123,8 @@ const SidebarProvider = React.forwardRef<
         )
     },
 )
+
+export {
+    SidebarProvider,
+    useSidebar
+};

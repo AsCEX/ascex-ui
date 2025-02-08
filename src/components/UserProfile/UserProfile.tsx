@@ -1,7 +1,5 @@
-"use client"
-
-import { Button } from "@/components/Button"
-import { cx, focusRing } from "@/lib/utils"
+import { Button } from "@components/Button/Button"
+import { cx, focusRing } from "@utils/utils"
 import { ChevronsUpDown } from "lucide-react"
 
 import { DropdownUserProfile } from "./DropdownUserProfile"

@@ -1,12 +1,10 @@
-// Tremor Drawer [v0.0.1]
-
 import * as DrawerPrimitives from "@radix-ui/react-dialog"
 import { RiCloseLine } from "@remixicon/react"
 import * as React from "react"
 
-import { cx, focusRing } from "@/lib/utils"
+import { cx, focusRing } from "@utils/utils"
 
-import { Button } from "./Button"
+import { Button } from "@components/Button/Button"
 
 const Drawer = (
   props: React.ComponentPropsWithoutRef<typeof DrawerPrimitives.Root>,

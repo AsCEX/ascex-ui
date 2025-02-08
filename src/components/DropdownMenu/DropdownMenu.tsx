@@ -1,7 +1,3 @@
-// Tremor Dropdown Menu [v0.0.2]
-
-"use client"
-
 import * as React from "react"
 import * as DropdownMenuPrimitives from "@radix-ui/react-dropdown-menu"
 import {
@@ -11,7 +7,7 @@ import {
   RiRadioButtonFill,
 } from "@remixicon/react"
 
-import { cx } from "@/lib/utils"
+import { cx } from "@utils/utils"
 
 const DropdownMenu = DropdownMenuPrimitives.Root
 DropdownMenu.displayName = "DropdownMenu"

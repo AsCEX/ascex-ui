@@ -1,6 +1,6 @@
 "use client"
-import { Divider } from "@/components/Divider"
-import { Input } from "@/components/Input"
+import { Divider } from "@components/Divider/Divider"
+import { Input } from "@components/Input/Input"
 import {
   Sidebar,
   SidebarContent,
@@ -13,13 +13,13 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarSubLink,
-} from "@/components/Sidebar"
-import { cx, focusRing } from "@/lib/utils"
+} from "@components/Sidebar/Sidebar"
+import { cx, focusRing } from "@utils/utils"
 import { RiArrowDownSFill } from "@remixicon/react"
 import { BookText, House, PackageSearch } from "lucide-react"
 import * as React from "react"
-import { Logo } from "../../../../public/Logo"
-import { UserProfile } from "./UserProfile"
+import Logo from "../../assets/react.svg"
+import { UserProfile } from "@components/UserProfile/UserProfile"
 
 const navigation = [
   {
@@ -102,7 +102,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader className="px-3 py-4">
         <div className="flex items-center gap-3">
           <span className="flex size-9 items-center justify-center rounded-md bg-white p-1.5 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
-            <Logo className="size-6 text-blue-500 dark:text-blue-500" />
+            <img src={Logo} className="size-6 text-blue-500 dark:text-blue-500" />
           </span>
           <div>
             <span className="block text-sm font-semibold text-gray-900 dark:text-gray-50">
@@ -177,7 +177,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </button>
                   {item.children && openMenus.includes(item.name) && (
                     <SidebarMenuSub>
-                      <div className="absolute inset-y-0 left-4 w-px bg-gray-300 dark:bg-gray-800" />
+                      <div className="absolute inset-y-0 left-4 w-px bg-gray-300 dark:bg-gray-lemon-dark-sidebar-subLink-indicator" />
                       {item.children.map((child) => (
                         <SidebarMenuItem key={child.name}>
                           <SidebarSubLink
@@ -197,7 +197,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <div className="border-t border-gray-200 dark:border-gray-800" />
+        <div className="border-t border-gray-200 dark:border-gray-lemon-dark-sidebar-divider" />
         <UserProfile />
       </SidebarFooter>
     </Sidebar>

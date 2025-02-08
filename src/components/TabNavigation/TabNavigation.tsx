@@ -1,9 +1,7 @@
-// Tremor TabNavigation [v0.1.0]
-
 import * as NavigationMenuPrimitives from "@radix-ui/react-navigation-menu"
 import React from "react"
 
-import { cx, focusRing } from "@/lib/utils"
+import { cx, focusRing } from "@utils/utils"
 
 export function getSubtree(
   options: {

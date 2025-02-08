@@ -1,5 +1,3 @@
-"use client"
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,9 +11,8 @@ import {
   DropdownMenuSubMenuContent,
   DropdownMenuSubMenuTrigger,
   DropdownMenuTrigger,
-} from "@/components/DropdownMenu"
+} from "@components/DropdownMenu/DropdownMenu"
 import { ArrowUpRight, Monitor, Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
 import * as React from "react"
 
 export type DropdownUserProfileProps = {
@@ -28,7 +25,6 @@ export function DropdownUserProfile({
   align = "start",
 }: DropdownUserProfileProps) {
   const [mounted, setMounted] = React.useState(false)
-  const { theme, setTheme } = useTheme()
   React.useEffect(() => {
     setMounted(true)
   }, [])
@@ -49,12 +45,7 @@ export function DropdownUserProfile({
             <DropdownMenuSubMenu>
               <DropdownMenuSubMenuTrigger>Theme</DropdownMenuSubMenuTrigger>
               <DropdownMenuSubMenuContent>
-                <DropdownMenuRadioGroup
-                  value={theme}
-                  onValueChange={(value) => {
-                    setTheme(value)
-                  }}
-                >
+                <DropdownMenuRadioGroup>
                   <DropdownMenuRadioItem
                     aria-label="Switch to Light Mode"
                     value="light"

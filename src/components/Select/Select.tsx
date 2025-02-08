@@ -1,5 +1,3 @@
-// Tremor Select [v0.0.3]
-
 import React from "react"
 import * as SelectPrimitives from "@radix-ui/react-select"
 import {
@@ -9,7 +7,7 @@ import {
   RiExpandUpDownLine,
 } from "@remixicon/react"
 
-import { cx, focusInput, hasErrorInput } from "@/lib/utils"
+import { cx, focusInput, hasErrorInput } from "@utils/utils"
 
 const Select = SelectPrimitives.Root
 Select.displayName = "Select"

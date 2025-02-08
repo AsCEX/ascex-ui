@@ -17,7 +17,7 @@ import { format, type Locale } from "date-fns"
 import { enUS } from "date-fns/locale"
 import { tv, VariantProps } from "tailwind-variants"
 
-import { cx, focusInput, focusRing, hasErrorInput } from "@utils/utils"
+import { cx, focusInput, hasErrorInput } from "@utils/utils"
 
 import { Button } from "@components/Button/Button"
 import { Calendar as CalendarPrimitive, type Matcher } from "@components/Calendar/Calendar"
@@ -64,8 +64,6 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
                 "text-gray-900 dark:text-gray-50",
                 // background color
                 "bg-white dark:bg-gray-950",
-                // focus
-                focusInput,
                 // invalid (optional)
                 "invalid:border-red-500 invalid:ring-2 invalid:ring-red-200 group-aria-[invalid=true]/time-input:border-red-500 group-aria-[invalid=true]/time-input:ring-2 group-aria-[invalid=true]/time-input:ring-red-200 group-aria-[invalid=true]/time-input:dark:ring-red-400/20",
                 {
@@ -150,7 +148,7 @@ TimeInput.displayName = "TimeInput"
 const triggerStyles = tv({
     base: [
         // base
-        "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate border px-3 py-2 shadow-sm outline-none transition-all sm:text-sm",
+        "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate border px-3 py-1.5 shadow-sm outline-none transition-all sm:text-sm",
         // background color
         "bg-white dark:bg-gray-950",
         // border color
@@ -196,7 +194,7 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
                     {...props}
                 >
                     <RiCalendar2Fill className="size-5 shrink-0 text-gray-400 dark:text-gray-600" />
-                    <span className="flex-1 overflow-hidden text-xs text-ellipsis whitespace-nowrap text-left text-gray-900 dark:text-gray-50">
+                    <span className="flex-1 overflow-hidden text-sm text-ellipsis whitespace-nowrap text-left text-gray-900 dark:text-gray-50">
             {children ? (
                 children
             ) : placeholder ? (
@@ -371,8 +369,6 @@ const PresetContainer = <TPreset extends Preset, TValue>({
                                 "text-gray-700 dark:text-gray-300",
                                 // border color
                                 "border-gray-200 dark:border-gray-800",
-                                // focus
-                                focusRing,
                                 // background color
                                 "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
                                 "hover:bg-gray-100 hover:dark:bg-gray-900",

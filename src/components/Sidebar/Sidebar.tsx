@@ -1,137 +1,25 @@
-"use client"
-
 import {
     Drawer,
     DrawerClose,
     DrawerContent,
     DrawerTitle,
-} from "@/components/Drawer"
-import { useIsMobile } from "@/lib/useMobile"
-import { cx, focusRing } from "@/lib/utils"
+} from "@components/Drawer/Drawer"
+import "./Sidebar.css";
+import { cx, focusRing } from "@utils/utils"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { RiCloseLine } from "@remixicon/react"
 import { PanelLeft } from "lucide-react"
 import * as React from "react"
-import { Button } from "./Button"
-
-// This component is based on shadcn's sidebar component
-
-const SIDEBAR_COOKIE_NAME = "sidebar:state"
-const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-const SIDEBAR_WIDTH = "16rem"
-
-type SidebarContext = {
-    state: "expanded" | "collapsed"
-    open: boolean
-    setOpen: (open: boolean) => void
-    openMobile: boolean
-    setOpenMobile: (open: boolean) => void
-    isMobile: boolean
-    toggleSidebar: () => void
-}
-
-const SidebarContext = React.createContext<SidebarContext | null>(null)
-
-function useSidebar() {
-    const context = React.useContext(SidebarContext)
-    if (!context) {
-        throw new Error("useSidebar must be used within a SidebarProvider.")
-    }
-
-    return context
-}
-
-const SidebarProvider = React.forwardRef<
-    HTMLDivElement,
-    React.ComponentProps<"div"> & {
-    defaultOpen?: boolean
-    open?: boolean
-    onOpenChange?: (open: boolean) => void
-}
->(
-    (
-        {
-            defaultOpen = true,
-            open: openProp,
-            onOpenChange: setOpenProp,
-            className,
-            style,
-            children,
-            ...props
-        },
-        ref,
-    ) => {
-        const isMobile = useIsMobile()
-        const [openMobile, setOpenMobile] = React.useState(false)
-
-        const [_open, _setOpen] = React.useState(defaultOpen)
-        const open = openProp ?? _open
-        const setOpen = React.useCallback(
-            (value: boolean | ((value: boolean) => boolean)) => {
-                const openState = typeof value === "function" ? value(open) : value
-                if (setOpenProp) {
-                    setOpenProp(openState)
-                } else {
-                    _setOpen(openState)
-                }
-
-                document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
-            },
-            [setOpenProp, open],
-        )
-
-        const toggleSidebar = React.useCallback(() => {
-            return isMobile
-                ? setOpenMobile((open) => !open)
-                : setOpen((open) => !open)
-        }, [isMobile, setOpen, setOpenMobile])
-
-        const state = open ? "expanded" : "collapsed"
-
-        const contextValue = React.useMemo<SidebarContext>(
-            () => ({
-                state,
-                open,
-                setOpen,
-                isMobile,
-                openMobile,
-                setOpenMobile,
-                toggleSidebar,
-            }),
-            [
-                state,
-                open,
-                setOpen,
-                isMobile,
-                openMobile,
-                setOpenMobile,
-                toggleSidebar,
-            ],
-        )
-
-        return (
-            <SidebarContext.Provider value={contextValue}>
-                <div
-                    style={
-                        {
-                            "--sidebar-width": SIDEBAR_WIDTH,
-                            ...style,
-                        } as React.CSSProperties
-                    }
-                    className={cx("flex min-h-svh w-full", className)}
-                    ref={ref}
-                    {...props}
-                >
-                    {children}
-                </div>
-            </SidebarContext.Provider>
-        )
-    },
-)
-SidebarProvider.displayName = "SidebarProvider"
+import { Button } from "@components/Button/Button"
+import {useSidebar} from "../../main.ts";
 
 const Sidebar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
-    ({ className, children, ...props }, ref) => {
+    (
+    {
+         className,
+         children,
+         ...props
+    }, ref) => {
         const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
 
         if (isMobile) {
@@ -160,13 +48,13 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
                 </Drawer>
             )
         }
-
+        // dark:bg-[#090E1A]
         return (
             <div
                 ref={ref}
                 className="group peer hidden md:block"
                 data-state={state}
-                data-collapsible={state === "collapsed" ? true : false}
+                data-collapsible={state === "collapsed"}
             >
                 {/* This is what handles the sidebar gap on desktop */}
                 <div
@@ -179,14 +67,14 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
                     className={cx(
                         "fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] duration-150 ease-in-out will-change-transform md:flex",
                         "left-0 group-data-[collapsible=true]:left-[calc(var(--sidebar-width)*-1)]",
-                        "border-r border-gray-200 dark:border-gray-800",
+                        "border-r border-gray-200 dark:border-gray-lemon-dark-sidebar-border",
                         className,
                     )}
                     {...props}
                 >
                     <div
                         data-sidebar="sidebar"
-                        className="bg-sidebar flex h-full w-full flex-col"
+                        className="flex h-full w-full flex-col"
                     >
                         {children}
                     </div>
@@ -200,7 +88,7 @@ Sidebar.displayName = "Sidebar"
 const SidebarTrigger = React.forwardRef<
     React.ComponentRef<"button">,
     React.ComponentPropsWithRef<"button">
->(({ className, onClick, ...props }, ref) => {
+>(({ onClick, ...props }, ref) => {
     const { toggleSidebar } = useSidebar()
 
     return (
@@ -283,8 +171,15 @@ const SidebarLink = React.forwardRef<
     isActive?: boolean
     notifications?: number | boolean
 }
->(({ children, isActive, icon, notifications, className, ...props }, ref) => {
+>(({
+       children,
+       isActive,
+       icon,
+       notifications,
+       ...props
+   }, ref) => {
     const Icon = icon
+
     return (
         <a
             ref={ref}
@@ -296,6 +191,10 @@ const SidebarLink = React.forwardRef<
                 "data-[active=true]:text-blue-600 data-[active=true]:dark:text-blue-500",
                 focusRing,
             )}
+            onClick={(event) => {
+                event.preventDefault();
+                props.onClick?.(event);
+            }}
             {...props}
         >
       <span className="flex items-center gap-x-2.5">
@@ -365,7 +264,7 @@ const SidebarSubLink = React.forwardRef<
     children: React.ReactNode
     isActive?: boolean
 }
->(({ isActive, children, className, ...props }, ref) => {
+>(({ isActive, children, ...props }, ref) => {
     return (
         <a
             ref={ref}
@@ -373,15 +272,15 @@ const SidebarSubLink = React.forwardRef<
             data-active={isActive}
             className={cx(
                 "relative flex gap-2 rounded-md py-1.5 pl-9 pr-3 text-base transition sm:text-sm",
-                "text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50",
-                "data-[active=true]:rounded data-[active=true]:bg-white data-[active=true]:text-blue-600 data-[active=true]:shadow data-[active=true]:ring-1 data-[active=true]:ring-gray-200 data-[active=true]:dark:bg-gray-900 data-[active=true]:dark:text-blue-500 data-[active=true]:dark:ring-gray-800",
+                "text-gray-700 hover:text-gray-900 dark:text-gray-lemon-dark-sidebar-subLink-text dark:hover:text-gray-50",
+                "data-[active=true]:rounded data-[active=true]:bg-white data-[active=true]:text-blue-600 data-[active=true]:shadow data-[active=true]:ring-1 data-[active=true]:ring-gray-200 data-[active=true]:dark:bg-gray-lemon-dark-sidebar-subLink-active-background data-[active=true]:dark:text-gray-lemon-dark-sidebar-subLink-text data-[active=true]:dark:ring-gray-lemon-dark-sidebar-subLink-active-border",
                 focusRing,
             )}
             {...props}
         >
             {isActive && (
                 <div
-                    className="absolute left-4 top-1/2 h-5 w-px -translate-y-1/2 bg-blue-500 dark:bg-blue-500"
+                    className="absolute left-4 top-1/2 h-5 w-px -translate-y-1/2 bg-blue-500 dark:bg-gray-lemon-dark-sidebar-subLink-active-indicator"
                     aria-hidden="true"
                 />
             )}
@@ -415,8 +314,6 @@ export {
     SidebarMenu,
     SidebarMenuItem,
     SidebarMenuSub,
-    SidebarProvider,
     SidebarSubLink,
-    SidebarTrigger,
-    useSidebar,
+    SidebarTrigger
 }
