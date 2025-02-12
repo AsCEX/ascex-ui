@@ -1,7 +1,7 @@
 {
   "name": "ascex-ui",
   "private": false,
-  "version": "0.0.94",
+  "version": "0.0.95",
   "type": "module",
   "files": [
     "dist"
@@ -12,6 +12,10 @@
     ".": {
       "import": "./dist/ascex-ui.js",
       "export": "./dist/ascex-ui.umd.cjs"
+    },
+    "./tailwind-preset": {
+      "import": "./dist/tailwind-preset.js",
+      "require": "./dist/tailwind-preset.cjs"
     },
     "./style.css": "./dist/ascex-ui.css"
   },
