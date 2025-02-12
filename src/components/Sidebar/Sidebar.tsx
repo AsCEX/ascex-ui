@@ -272,7 +272,7 @@ const SidebarSubLink = React.forwardRef<
             data-active={isActive}
             className={cx(
                 "relative flex gap-2 rounded-md py-1.5 pl-9 pr-3 text-base transition sm:text-sm",
-                "text-gray-700 hover:text-gray-900 dark:text-gray-lemon-dark-sidebar-subLink-text dark:hover:text-gray-50",
+                "text-gray-700 hover:text-gray-900 hover:bg-gray-200/50 hover:dark:bg-gray-900 dark:text-gray-lemon-dark-sidebar-subLink-text dark:hover:text-gray-50",
                 "data-[active=true]:rounded data-[active=true]:bg-white data-[active=true]:text-blue-600 data-[active=true]:shadow data-[active=true]:ring-1 data-[active=true]:ring-gray-200 data-[active=true]:dark:bg-gray-lemon-dark-sidebar-subLink-active-background data-[active=true]:dark:text-gray-lemon-dark-sidebar-subLink-text data-[active=true]:dark:ring-gray-lemon-dark-sidebar-subLink-active-border",
                 focusRing,
             )}

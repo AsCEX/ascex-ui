@@ -23,13 +23,13 @@ const selectTriggerStyles = [
     // base
     "group/trigger flex w-full select-none items-center justify-between gap-2 truncate rounded-md border px-3 py-2 shadow-sm outline-none transition sm:text-sm",
     // border color
-    "border-gray-300 dark:border-gray-800",
+    "border-gray-300 dark:border-gray-lemon-dark-border",
     // text color
     "text-gray-900 dark:text-gray-50",
     // placeholder
     "data-[placeholder]:text-gray-500 data-[placeholder]:dark:text-gray-500",
     // background color
-    "bg-white dark:bg-gray-950",
+    "bg-white dark:bg-gray-lemon-dark-primary",
     // hover
     "hover:bg-gray-50 hover:dark:bg-gray-950/50",
     // disabled
@@ -138,11 +138,11 @@ const SelectContent = React.forwardRef<
           // heights
           "max-h-[--radix-select-content-available-height]",
           // background color
-          "bg-white dark:bg-gray-950",
+          "bg-white dark:bg-gray-lemon-dark-primary",
           // text color
           "text-gray-900 dark:text-gray-50",
           // border color
-          "border-gray-200 dark:border-gray-800",
+          "border-gray-200 dark:border-gray-lemon-dark-border",
           // transition
           "will-change-[transform,opacity]",
           // "data-[state=open]:animate-slideDownAndFade",

@@ -23,25 +23,71 @@ import { Download } from "lucide-react"
 // import { Fragment } from "react"
 import TremorTable from "@components/TremorTable/TremorTable.tsx";
 import {ColumnDef} from "@tanstack/react-table";
-import {useMemo} from "react";
+import {useMemo, useState} from "react";
 import {RiDeleteBin7Line, RiPencilLine, RiPlayListAddLine} from "@remixicon/react";
 import IndeterminateCheckbox from "@components/TremorTable/IndeterminateCheckbox.tsx";
+import {
+    DateRange,
+    Dialog,
+    DateRangePicker,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger, DatePicker
+} from "./main.ts";
 
-// const colorClasses = [
-//     "bg-blue-500 dark:bg-blue-500",
-//     "bg-purple-500 dark:bg-purple-500",
-//     "bg-emerald-500 dark:bg-emerald-500",
-//     "bg-cyan-500 dark:bg-cyan-500",
-//     "bg-rose-500 dark:bg-rose-500",
-//     "bg-indigo-500 dark:bg-indigo-500",
-// ]
-
-// const getRandomColor = (initials: string) => {
-//     const seed = initials
-//         .split("")
-//         .reduce((acc, char) => acc + char.charCodeAt(0), 0)
-//     return colorClasses[seed % colorClasses.length]
-// }
+const presets = [
+    {
+        label: "Today",
+        dateRange: {
+            from: new Date(),
+            to: new Date(),
+        },
+    },
+    {
+        label: "Last 7 days",
+        dateRange: {
+            from: new Date(new Date().setDate(new Date().getDate() - 7)),
+            to: new Date(),
+        },
+    },
+    {
+        label: "Last 30 days",
+        dateRange: {
+            from: new Date(new Date().setDate(new Date().getDate() - 30)),
+            to: new Date(),
+        },
+    },
+    {
+        label: "Last 3 months",
+        dateRange: {
+            from: new Date(new Date().setMonth(new Date().getMonth() - 3)),
+            to: new Date(),
+        },
+    },
+    {
+        label: "Last 6 months",
+        dateRange: {
+            from: new Date(new Date().setMonth(new Date().getMonth() - 6)),
+            to: new Date(),
+        },
+    },
+    {
+        label: "Month to date",
+        dateRange: {
+            from: new Date(new Date().setDate(1)),
+            to: new Date(),
+        },
+    },
+    {
+        label: "Year to date",
+        dateRange: {
+            from: new Date(new Date().setFullYear(new Date().getFullYear(), 0, 1)),
+            to: new Date(),
+        },
+    },
+]
 const workspaces = [
     {
         workspace: 'sales_by_day_api',
@@ -128,6 +174,10 @@ const workspaces = [
 
 function Dashboard() {
 
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+    const [dateRange, setDateRange] = useState<DateRange | undefined>(
+        undefined,
+    )
     const headers: ColumnDef<any>[] = useMemo(
         () => [
             {
@@ -275,6 +325,7 @@ function Dashboard() {
         [],
     );
 
+    const [openModal, setOpenModal] = useState(false);
     return (
         <section aria-label="Overview Table">
             <div className="flex flex-col justify-between gap-2 px-4 py-6 sm:flex-row sm:items-center sm:p-6">
@@ -283,10 +334,38 @@ function Dashboard() {
                     placeholder="Search quotes..."
                     className="sm:w-64 w-72 [&>input]:py-1.5"
                 />
+
+                <DatePicker value={selectedDate} onChange={(date) => {
+                    console.log('datePicker change');
+                    setSelectedDate(date)
+                }} className="ml-auto" />
+                <DateRangePicker
+                    presets={presets}
+                    value={dateRange}
+                    enableYearNavigation={true}
+                    onChange={setDateRange}
+                    className="w-60 ml-auto border-0"
+                />
+                <Dialog open={openModal} onOpenChange={setOpenModal}>
+                    <DialogTrigger asChild>
+                        <Button
+                            className={"rounded-none text-xs border-0 hover:bg-[#1f4d41] dark:hover:bg-[#1f4d41]"}>
+                            <Download className={'mr-1'}/> New Employee</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-lg">
+                        <DialogHeader>
+                            <DialogTitle>Employee Form</DialogTitle>
+                            <DialogDescription/>
+                            <div className={"flex flex-grow p-6 pt-0"} style={{'height':'60vh'}}>
+                                <div className={"h-[60vh]"}>Test</div>
+                            </div>
+                        </DialogHeader>
+                    </DialogContent>
+                </Dialog>
                 <div className="flex flex-col items-center gap-2 sm:flex-row">
                     <Select>
                         <SelectTrigger className="w-full py-1.5 sm:w-44">
-                            <SelectValue placeholder="Assigned to..." />
+                            <SelectValue placeholder="Assigned to..."/>
                         </SelectTrigger>
                         <SelectContent align="end">
                             <SelectItem value="1">Harry Granger</SelectItem>
@@ -304,6 +383,7 @@ function Dashboard() {
                         />
                         Export
                     </Button>
+
                 </div>
             </div>
             <div className="relative">
@@ -418,7 +498,7 @@ function Dashboard() {
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
 export default Dashboard

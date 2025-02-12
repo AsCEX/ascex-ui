@@ -16,7 +16,7 @@ interface CalendarProps {
     onChange?: (newDate: Date) => void
 }
 
-const Calendar = ({month, year, calendarEvents, onChange}: CalendarProps) => {
+const CalendarEvents = ({month, year, calendarEvents, onChange}: CalendarProps) => {
 
     const { getMonthDays } = useCalendar();
     const currentDate = moment({ year: year, month: (month ?? 0) - 1 }).toDate();
@@ -167,4 +167,4 @@ const Calendar = ({month, year, calendarEvents, onChange}: CalendarProps) => {
     );
 }
 
-export default Calendar;
+export default CalendarEvents;

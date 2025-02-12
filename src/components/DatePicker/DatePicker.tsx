@@ -59,7 +59,7 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
                 // base
                 "relative block w-full appearance-none rounded-md border px-2.5 py-1.5 text-left uppercase tabular-nums shadow-sm outline-none transition sm:text-sm",
                 // border color
-                "border-gray-300 dark:border-gray-800",
+                "border-gray-300 dark:border-gray-lemon-dark-border",
                 // text color
                 "text-gray-900 dark:text-gray-50",
                 // background color
@@ -70,7 +70,7 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
                     "!w-fit border-none bg-transparent px-0 text-gray-400 shadow-none":
                     isDecorator,
                     hidden: isSpace,
-                    "border-gray-300 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500":
+                    "border-gray-300 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-lemon-dark-border dark:text-gray-500":
                     state.isDisabled,
                     "!bg-transparent !text-gray-400": !segment.isEditable,
                 },
@@ -148,21 +148,21 @@ TimeInput.displayName = "TimeInput"
 const triggerStyles = tv({
     base: [
         // base
-        "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate border px-3 py-1.5 shadow-sm outline-none transition-all sm:text-sm",
+        "peer flex cursor-pointer appearance-none items-center gap-x-2 truncate border px-3 py-1.5 shadow-sm outline-none transition-all sm:text-sm",
         // background color
-        "bg-white dark:bg-gray-950",
+        "bg-white dark:bg-gray-lemon-dark-accent",
         // border color
-        "border-gray-300 dark:border-gray-800",
+        "border-gray-300 dark:border-gray-lemon-dark-border",
         // text color
-        "text-gray-900 dark:text-gray-50",
+        "text-gray-900 dark:text-gray-lemon-dark-primary",
         // placeholder color
         "placeholder-gray-400 dark:placeholder-gray-500",
         // hover
-        "hover:bg-gray-50 hover:dark:bg-gray-950/50",
+        "hover:bg-gray-50 hover:dark:bg-gray-lemon-dark-accent-hover",
         // disabled
         "disabled:pointer-events-none",
         "disabled:bg-gray-100 disabled:text-gray-400",
-        "disabled:dark:border-gray-800 disabled:dark:bg-gray-800 disabled:dark:text-gray-500",
+        "disabled:dark:border-gray-lemon-dark-border disabled:dark:bg-gray-lemon-dark-border disabled:dark:text-gray-500",
         // focus
         focusInput,
         // invalid (optional)
@@ -190,19 +190,19 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
             <PopoverPrimitives.Trigger asChild>
                 <button
                     ref={forwardedRef}
-                    className={cx(triggerStyles({ hasError }), className)}
+                    className={cx(triggerStyles({ hasError }), className, 'w-auto')}
                     {...props}
                 >
-                    <RiCalendar2Fill className="size-5 shrink-0 text-gray-400 dark:text-gray-600" />
-                    <span className="flex-1 overflow-hidden text-sm text-ellipsis whitespace-nowrap text-left text-gray-900 dark:text-gray-50">
+                    <span className="flex-1 overflow-hidden text-sm text-ellipsis whitespace-nowrap text-right text-gray-900 dark:text-gray-50">
             {children ? (
                 children
             ) : placeholder ? (
-                <span className="text-gray-400 dark:text-gray-600">
+                <span className="text-gray-400 dark:text-gray-lemon-dark-text">
                 {placeholder}
               </span>
             ) : null}
           </span>
+                    <RiCalendar2Fill className="size-5 shrink-0 text-gray-400 dark:text-gray-lemon-dark-text" />
                 </button>
             </PopoverPrimitives.Trigger>
         )
@@ -233,9 +233,9 @@ const CalendarPopover = React.forwardRef<
                     // widths
                     "min-w-[calc(var(--radix-select-trigger-width)-2px)] max-w-[95vw]",
                     // border color
-                    "border-gray-200 dark:border-gray-800",
+                    "border-gray-200 dark:border-gray-lemon-dark-border",
                     // background color
-                    "bg-white dark:bg-gray-950",
+                    "bg-white dark:bg-gray-lemon-dark-secondary",
                     // transition
                     "will-change-[transform,opacity]",
                     "data-[state=closed]:animate-hide",
@@ -368,7 +368,7 @@ const PresetContainer = <TPreset extends Preset, TValue>({
                                 // text color
                                 "text-gray-700 dark:text-gray-300",
                                 // border color
-                                "border-gray-200 dark:border-gray-800",
+                                "border-gray-200 dark:border-gray-lemon-dark-border",
                                 // background color
                                 "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
                                 "hover:bg-gray-100 hover:dark:bg-gray-900",
@@ -403,10 +403,10 @@ const formatDate = (
 
     if (includeTime) {
         dateString = usesAmPm
-            ? format(date, "dd MMM, yyyy h:mm a", { locale })
-            : format(date, "dd MMM, yyyy HH:mm", { locale })
+            ? format(date, "MMMM, dd yyyy h:mm a", { locale })
+            : format(date, "MMMM, dd yyyy HH:mm", { locale })
     } else {
-        dateString = format(date, "dd MMM, yyyy", { locale })
+        dateString = format(date, "MMMM, dd yyyy", { locale })
     }
 
     return dateString
@@ -456,6 +456,7 @@ interface PickerProps extends CalendarProps {
 // ============================================================================
 
 interface SingleProps extends Omit<PickerProps, "translations"> {
+    applyOnClose?: boolean,
     presets?: DatePreset[]
     defaultValue?: Date
     value?: Date
@@ -464,6 +465,7 @@ interface SingleProps extends Omit<PickerProps, "translations"> {
 }
 
 const SingleDatePicker = ({
+                              applyOnClose,
                               defaultValue,
                               value,
                               onChange,
@@ -517,13 +519,19 @@ const SingleDatePicker = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open])
 
-    const onCancel = () => {
-        setDate(initialDate)
-        setTime(
-            initialDate
-                ? new Time(initialDate.getHours(), initialDate.getMinutes())
-                : new Time(0, 0),
-        )
+    const onCancel = (event: React.MouseEvent<HTMLElement> | undefined = undefined ) => {
+
+        if( !applyOnClose && !event ){
+            setDate(date)
+            onChange?.(date)
+        }else{
+            setDate(initialDate)
+            setTime(
+                initialDate
+                    ? new Time(initialDate.getHours(), initialDate.getMinutes())
+                    : new Time(0, 0),
+            )
+        }
         setOpen(false)
     }
 
@@ -618,7 +626,7 @@ const SingleDatePicker = ({
                             <div
                                 className={cx(
                                     "relative flex h-14 w-full items-center sm:h-full sm:w-40",
-                                    "border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-800",
+                                    "border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-lemon-dark-border",
                                     "overflow-auto",
                                 )}
                             >
@@ -646,7 +654,7 @@ const SingleDatePicker = ({
                                 {...props}
                             />
                             {showTimePicker && (
-                                <div className="border-t border-gray-200 p-3 dark:border-gray-800">
+                                <div className="border-t border-gray-200 p-3 dark:border-gray-lemon-dark-border">
                                     <TimeInput
                                         aria-label="Time"
                                         onChange={onTimeChange}
@@ -656,7 +664,7 @@ const SingleDatePicker = ({
                                     />
                                 </div>
                             )}
-                            <div className="flex items-center gap-x-2 border-t border-gray-200 p-3 dark:border-gray-800">
+                            <div className="flex items-center gap-x-2 border-t border-gray-200 p-3 dark:border-gray-lemon-dark-border">
                                 <Button
                                     variant="secondary"
                                     className="h-8 w-full"
@@ -928,7 +936,7 @@ const RangeDatePicker = ({
                             <div
                                 className={cx(
                                     "relative flex h-16 w-full items-center sm:h-full sm:w-40",
-                                    "border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-800",
+                                    "border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-lemon-dark-border",
                                     "overflow-auto",
                                 )}
                             >
@@ -956,12 +964,12 @@ const RangeDatePicker = ({
                                 initialFocus
                                 classNames={{
                                     months:
-                                        "flex flex-row divide-x divide-gray-200 dark:divide-gray-800 overflow-x-auto",
+                                        "flex flex-row divide-x divide-gray-200 dark:divide-gray-lemon-dark-border overflow-x-auto",
                                 }}
                                 {...props}
                             />
                             {showTimePicker && (
-                                <div className="flex items-center justify-evenly gap-x-3 border-t border-gray-200 p-3 dark:border-gray-800">
+                                <div className="flex items-center justify-evenly gap-x-3 border-t border-gray-200 p-3 dark:border-gray-lemon-dark-border">
                                     <div className="flex flex-1 items-center gap-x-2">
                     <span className="dark:text-gray-30 text-gray-700">
                       {translations?.start ?? "Start"}:
@@ -989,7 +997,7 @@ const RangeDatePicker = ({
                                     </div>
                                 </div>
                             )}
-                            <div className="border-t border-gray-200 p-3 sm:flex sm:items-center sm:justify-between dark:border-gray-800">
+                            <div className="border-t border-gray-200 p-3 sm:flex sm:items-center sm:justify-between dark:border-gray-lemon-dark-border">
                                 <p className="tabular-nums text-gray-900 dark:text-gray-50">
                   <span className="text-gray-700 dark:text-gray-300">
                     {translations?.range ?? "Range"}:
@@ -1171,6 +1179,7 @@ const validatePresets = (
 // ============================================================================
 
 type SingleDatePickerProps = {
+    applyOnClose?: boolean,
     presets?: DatePreset[]
     defaultValue?: Date
     value?: Date

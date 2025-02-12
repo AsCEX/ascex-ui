@@ -62,7 +62,7 @@ const DialogContent = React.forwardRef<
                         // border color
                         "border-gray-200 dark:border-gray-900",
                         // background color
-                        "bg-white dark:bg-[#2a2d30]",
+                        "bg-white dark:bg-gray-lemon-dark-secondary",
                         // transition
                         "data-[state=open]:animate-dialogContentShow",
                         focusRing,
@@ -88,12 +88,12 @@ const DialogHeader = ({
                 className="ml-auto absolute right-2 top-2 items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
                 type="button">
                 <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24"
-                     className="h-5 w-5" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                     className="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
         </DialogClose>
-        <div className={cx("flex flex-col gap-y-1 p-0", className)} {...props} />
+        <div className={cx("flex flex-col h-full gap-y-1 p-0", className)} {...props} />
     </>
 }
 
@@ -108,9 +108,11 @@ const DialogTitle = React.forwardRef<
             ref={forwardedRef}
             className={cx(
                 // base
-                "text-md font-semibold p-4 bg-[#3c3f41]",
+                "text-sm font-semibold p-4 bg-gray-200 dark:bg-gray-lemon-dark-secondary",
                 // text color
                 "text-gray-900 dark:text-gray-50",
+                // border
+                "border-b border-b-gray-200 dark:border-b-gray-lemon-dark-border",
                 className,
             )}
             {...props}

@@ -46,6 +46,10 @@ const config: Config = {
         },
         "gray-lemon": {
           dark: {
+            // accent: '#d1bc78',
+            accent: grayLemonColors.gray[100],
+            'accent-hover': grayLemonColors.gray[50],
+            'accent-muted': '#363636',
             text: grayLemonColors.gray['10'],
             primary: grayLemonColors.gray['100'],
             secondary: grayLemonColors.gray['50'],
@@ -75,70 +79,12 @@ const config: Config = {
                   border: grayLemonColors.gray['80'],
                 },
               },
+            },
+            button: {
+              DEFAULT: grayLemonColors[50],
+              hover: grayLemonColors[80],
             }
           }
-        },
-        // light mode
-        tremor: {
-          brand: {
-            faint: colors.blue[50],
-            muted: colors.blue[200],
-            subtle: colors.blue[400],
-            DEFAULT: colors.blue[500],
-            emphasis: colors.blue[700],
-            inverted: colors.white,
-          },
-          background: {
-            muted: colors.gray[50],
-            subtle: colors.gray[100],
-            DEFAULT: colors.white,
-            emphasis: colors.gray[700],
-          },
-          border: {
-            DEFAULT: colors.gray[200],
-          },
-          ring: {
-            DEFAULT: colors.gray[200],
-          },
-          content: {
-            subtle: colors.gray[400],
-            DEFAULT: colors.gray[500],
-            emphasis: colors.gray[700],
-            strong: colors.gray[900],
-            inverted: colors.white,
-          },
-        },
-        // dark mode
-        'dark-tremor': {
-          brand: {
-            faint: '#0B1229',
-            muted: colors.blue[950],
-            subtle: colors.blue[800],
-            DEFAULT: colors.blue[500],
-            emphasis: colors.blue[400],
-            inverted: colors.blue[950],
-          },
-          background: {
-            muted: '#131A2B',
-            subtle: colors.gray[800],
-            // DEFAULT: '#050814',
-            DEFAULT: '#1e2022',
-            emphasis: colors.gray[300],
-          },
-          border: {
-            DEFAULT: "#1e2022",
-            dark: "#1e2022",
-          },
-          ring: {
-            DEFAULT: colors.gray[800],
-          },
-          content: {
-            subtle: colors.gray[600],
-            DEFAULT: colors.gray[500],
-            emphasis: colors.gray[200],
-            strong: colors.gray[50],
-            inverted: colors.gray[950],
-          },
         },
       },
       boxShadow: {
@@ -165,6 +111,21 @@ const config: Config = {
         'tremor-default': ['0.875rem', { lineHeight: '1.25rem' }],
         'tremor-title': ['1.125rem', { lineHeight: '1.75rem' }],
         'tremor-metric': ['1.875rem', { lineHeight: '2.25rem' }],
+      },
+      keyframes: {
+        hide: {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
+        },
+        slideLeftAndFade: {
+          from: { opacity: "0", transform: "translateX(6px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+      },
+      animation: {
+        hide: "hide 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideLeftAndFade:
+            "slideLeftAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

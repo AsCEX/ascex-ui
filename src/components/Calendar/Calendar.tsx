@@ -46,13 +46,13 @@ const NavigationButton = React.forwardRef<
                     "text-gray-600 hover:text-gray-800",
                     "dark:text-gray-400 hover:dark:text-gray-200",
                     // border color
-                    "border-gray-300 dark:border-gray-800",
+                    "border-gray-300 dark:border-gray-lemon-dark-border",
                     // background color
                     "hover:bg-gray-50 active:bg-gray-100",
                     "hover:dark:bg-gray-900 active:dark:bg-gray-800",
                     // disabled
                     "disabled:pointer-events-none",
-                    "disabled:border-gray-200 disabled:dark:border-gray-800",
+                    "disabled:border-gray-200 disabled:dark:border-gray-lemon-dark-border",
                     "disabled:text-gray-400 disabled:dark:text-gray-600",
                     focusRing,
                 )}
@@ -128,7 +128,7 @@ const Calendar = ({
                 day_selected: cx(
                     "rounded",
                     "aria-selected:bg-blue-500 aria-selected:text-white",
-                    "dark:aria-selected:bg-blue-500 dark:aria-selected:text-white",
+                    "dark:aria-selected:bg-gray-lemon-dark-accent dark:aria-selected:text-white",
                 ),
                 day_disabled:
                     "!text-gray-300 dark:!text-gray-700 line-through disabled:hover:bg-transparent",
@@ -136,7 +136,7 @@ const Calendar = ({
                 day_range_middle: cx(
                     "!rounded-none",
                     "aria-selected:!bg-gray-100 aria-selected:!text-gray-900",
-                    "dark:aria-selected:!bg-gray-900 dark:aria-selected:!text-gray-50",
+                    "dark:aria-selected:!bg-gray-lemon-dark-accent-muted dark:aria-selected:!text-gray-50",
                 ),
                 day_range_start: "rounded-r-none !rounded-l",
                 day_range_end: "rounded-l-none !rounded-r",

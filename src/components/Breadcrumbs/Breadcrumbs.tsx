@@ -1,6 +1,14 @@
 import { ChevronRight } from "lucide-react"
+import React from "react";
 
-export function Breadcrumbs() {
+interface BreadcrumbsProps {
+  pathname: string
+}
+
+export function Breadcrumbs({ pathname } : BreadcrumbsProps) {
+
+  const pathnames = pathname.split("/").filter((x) => x);
+
   return (
     <>
       <nav aria-label="Breadcrumb" className="ml-2">
@@ -13,21 +21,36 @@ export function Breadcrumbs() {
               Home
             </a>
           </li>
-          <ChevronRight
-            className="size-4 shrink-0 text-gray-600 dark:text-gray-400"
-            aria-hidden="true"
-          />
-          <li className="flex">
-            <div className="flex items-center">
-              <a
-                href="#"
-                // aria-current={page.current ? 'page' : undefined}
-                className="text-gray-900 dark:text-gray-50"
-              >
-                Quotes
-              </a>
-            </div>
-          </li>
+
+          {pathnames.length > 0 && <ChevronRight
+              className="size-4 shrink-0 text-gray-600 dark:text-gray-400"
+              aria-hidden="true"
+          />}
+          {
+            pathnames.map((value, index) => {
+              // const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
+              const isLast = index === pathnames.length - 1;
+
+              return <React.Fragment key={"breadcrumbs-" + index}>
+                <li className="flex" >
+                  <div className="flex items-center">
+                    <a
+                        href="#"
+                        // aria-current={page.current ? 'page' : undefined}
+                        className="text-gray-900 dark:text-gray-50 capitalize"
+                    >
+                      {decodeURIComponent(value)}
+                    </a>
+                  </div>
+                </li>
+
+                {!isLast && <ChevronRight
+                    className="size-4 shrink-0 text-gray-600 dark:text-gray-400"
+                    aria-hidden="true"
+                />}
+              </React.Fragment>;
+            })
+          }
         </ol>
       </nav>
     </>
