@@ -95,4 +95,5 @@ export {
     hasErrorInput
 } from "@utils/utils"
 
-export { colors } from "@utils/colors";
+export { ascexUIColor } from "@utils/colors";
+export { default as tailwindPresets } from "./tailwind-presets.ts";

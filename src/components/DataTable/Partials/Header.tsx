@@ -1,6 +1,8 @@
 import DataTableHeader from "../DataTableHeader";
 import useDataTable from "../Utils/useDataTable";
-import {isMobile} from 'react-device-detect';
+import {isMobile} from "react-device-detect"
+import clsx from "clsx";
+import {rowHeightClass} from "@components/DataTable/Utils/size.ts";
 
 interface HeaderProps {
     className: string,
@@ -18,17 +20,22 @@ function Header( {
         freezePane = 0,
         paddingWidth = 0,
         leftPaneWidth,
-        rowNumberWidth = 0
+        rowNumberWidth = 0,
+        rowHeight,
     } = options ?? {};
 
+    const rowHeightCls: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = rowHeight ?? "xs";
     return (
         <div className={"pane " + className} style={{width: (side === 'left') ? leftPaneWidth : contentWidth + paddingWidth}} >
             <div className="pane-content">
                 <div className="headerRow">
 
-                    {side === 'left' && <div className={"staticCell bg-slate-50 dark:bg-table-header-bg-dark " +
-                        "border-b-[1px] border-b-slate-200 dark:border-b-table-border-color " +
-                        "text-table-header-text-color-dark dark:text-table-header-text-color-dark"}
+                    {side === 'left' &&
+                        <div className={clsx(
+                            rowHeightClass[rowHeightCls],
+                            "staticCell bg-slate-50 dark:bg-table-header-bg-dark",
+                        "border-b-[1px] border-b-slate-200 dark:border-b-table-border-color",
+                        "text-table-header-text-color-dark dark:text-table-header-text-color-dark")}
                          style={{width: rowNumberWidth}}>
                         <div className="rowNumber">
                             <div className="checkbox hidden items-center justify-center text-white">
@@ -49,7 +56,7 @@ function Header( {
                         return <DataTableHeader
                             key={name + '_hl_' + i}
                             // columnIndex={i}
-                            options={header}
+                            header={header}
                             // show={false}
                             // columnSearch={false}
                             /*changeSort={(data) => headerSort(data)}

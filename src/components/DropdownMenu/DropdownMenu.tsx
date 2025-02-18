@@ -71,11 +71,11 @@ const DropdownMenuSubMenuContent = React.forwardRef<
         // heights
         "max-h-[var(--radix-popper-available-height)]",
         // background color
-        "bg-white dark:bg-gray-950",
+        "bg-white dark:bg-gray-lemon-dark-secondary",
         // text color
         "text-gray-900 dark:text-gray-50",
         // border color
-        "border-gray-200 dark:border-gray-800",
+        "border-gray-200 dark:border-gray-lemon-dark-border",
         // transition
         "will-change-[transform,opacity]",
         // "data-[state=open]:animate-slideDownAndFade",
@@ -115,11 +115,11 @@ const DropdownMenuContent = React.forwardRef<
           // heights
           "max-h-[var(--radix-popper-available-height)]",
           // background color
-          "bg-white dark:bg-gray-950",
+          "bg-white dark:bg-gray-lemon-dark-secondary",
           // text color
           "text-gray-900 dark:text-gray-50",
           // border color
-          "border-gray-200 dark:border-gray-800",
+          "border-gray-200 dark:border-gray-lemon-dark-border",
           // transition
           "will-change-[transform,opacity]",
           "data-[state=closed]:animate-hide",
@@ -237,7 +237,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
       {shortcut && (
         <span
           className={cx(
-            "ml-auto text-sm font-normal tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-600",
+            "ml-auto text-sm font-normal tracking-widest text-gray-400 dark:border-gray-lemon-dark-border dark:text-gray-600",
           )}
         >
           {shortcut}
@@ -309,7 +309,7 @@ const DropdownMenuRadioItem = React.forwardRef<
       {shortcut && (
         <span
           className={cx(
-            "ml-auto text-sm font-normal tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-600",
+            "ml-auto text-sm font-normal tracking-widest text-gray-400 dark:border-gray-lemon-dark-border dark:text-gray-600",
           )}
         >
           {shortcut}
@@ -345,7 +345,7 @@ const DropdownMenuSeparator = React.forwardRef<
   <DropdownMenuPrimitives.Separator
     ref={forwardedRef}
     className={cx(
-      "-mx-1 my-1 h-px border-t border-gray-200 dark:border-gray-800",
+      "-mx-1 my-1 h-px border-t border-gray-200 dark:border-gray-lemon-dark-border",
       className,
     )}
     {...props}

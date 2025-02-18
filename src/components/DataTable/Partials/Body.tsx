@@ -1,6 +1,7 @@
 import Pane from "../Components/Pane";
 import Header from "./Header";
 import useDataTable from "../Utils/useDataTable.jsx";
+import { rowHeightValue } from "../Utils/size";
 
 // import debounce from "lodash.debounce";
 
@@ -16,7 +17,7 @@ function Body() {
         contentWidth = 0,
         leftPaneWidth = 0,
         paddingWidth = 0,
-        rowHeight = 0,
+        rowHeight,
         scrollXRef
     } = options ?? {};
 
@@ -38,7 +39,8 @@ function Body() {
                  // onScroll={(e) => setScroll(e)}
             >
                 <div className="grid-container" style={{width: contentWidth + leftPaneWidth}}>
-                    <div className="left-pane border-r-[1px] border-r-slate-200 dark:border-r-table-border-color" style={{width: leftPaneWidth, height: (items?.length + 1) * rowHeight}}>
+                    <div className={"left-pane border-r-[1px] border-r-slate-200 dark:border-r-table-border-color " + rowHeightValue[(rowHeight ? rowHeight : 'xs')]}
+                         style={{width: leftPaneWidth, height: (items?.length + 1) * rowHeightValue[(rowHeight ? rowHeight : 'xs')]}}>
                         <Header className={"header-left-pane"} />
                         <Pane items={items} name={"dataLeftPane"} side={"left"} width={leftPaneWidth}/>
                     </div>
@@ -53,7 +55,7 @@ function Body() {
                         style={{
                             left: leftPaneWidth - 1,
                             width: contentWidth,
-                            height: (items?.length + 1) * rowHeight
+                            height: (items?.length + 1) * rowHeightValue[(rowHeight ? rowHeight : 'xs')]
                         }}
                     >
                         <Header className={"header-left-pane"} side={'right'}/>

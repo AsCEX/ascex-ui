@@ -1,6 +1,8 @@
 import Cell from "./Cell";
 import useDataTable from "../Utils/useDataTable";
 import React from "react";
+import {rowHeightClass, rowHeightValue} from "@components/DataTable/Utils/size.ts";
+import clsx from "clsx";
 
 interface RowProps {
     index: number,
@@ -19,6 +21,7 @@ function Row({
     const { headers, options } = useDataTable();
     const {
         freezePane = 0,
+        rowHeight,
         rowNumberWidth = 0
     } = options ?? {};
 
@@ -52,6 +55,7 @@ function Row({
         pane?.children.item(rowIndex)?.classList.remove('hover');
     };
 
+    const rowHeightCls: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = rowHeight ?? "xs";
     return (
         <div
             className={
@@ -63,15 +67,17 @@ function Row({
                     : ' ') +
                 (isSelected(item.id) ? 'selected ' : ' ')*/
             }
-            style={{top: index * 32, bottom: 'auto', left: "-1px"}}
+            style={{top: index * rowHeightValue[(rowHeight ? rowHeight : 'xs')], bottom: 'auto', left: "-1px"}}
             onMouseEnter={(e) => rowHoverIn(e, side)}
             onMouseLeave={(e) => rowHoverOut(e, side)}
         >
             {side === 'left' &&  <div
-                className={"staticCellContainer group-[.even]:dark:bg-table-bg-dark group-[.odd]:dark:bg-table-bg-odd-dark " +
-                    "group-[.even]:bg-table-bg group-[.odd]:bg-table-bg-odd " +
-                    "border-b-[1px] border-b-slate-200 dark:border-b-table-border-color " +
-                    "text-table-header-text-color-dark dark:text-table-header-text-color-dark"}
+                className={clsx(
+                    rowHeightClass[rowHeightCls],
+                    "staticCellContainer group-[.even]:dark:bg-table-bg-dark group-[.odd]:dark:bg-table-bg-odd-dark ",
+                    "group-[.even]:bg-table-bg group-[.odd]:bg-table-bg-odd ",
+                    "border-b-[1px] border-b-slate-200 dark:border-b-table-border-color ",
+                    "text-table-header-text-color-dark dark:text-table-header-text-color-dark")}
                 style={{width: rowNumberWidth}}
             >
                 <div className="m-2 items-center justify-center text-white hidden">

@@ -16,7 +16,7 @@ function DataTable( {
     items,
     name,
     loaded = false,
-    options
+    options,
 }: DataTableContextProps ){
     const loadingRef = useRef(null);
 
@@ -25,6 +25,7 @@ function DataTable( {
           name={name}
           options={{
               height: options?.height ?? null,
+              rowHeight: options?.rowHeight ?? "xs"
           }}
           headers={headers}
           items={items} >

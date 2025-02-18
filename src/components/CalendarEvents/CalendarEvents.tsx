@@ -94,6 +94,10 @@ const CalendarEvents = ({month, year, calendarEvents, onChange}: CalendarProps) 
                     <div
                         className="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 dark:border-gray-lemon-dark-border dark:bg-gray-lemon-dark-secondary text-center text-xs font-semibold leading-6 text-gray-700 dark:text-gray-lemon-dark-text lg:flex-none">
                         <div className="flex justify-center bg-white dark:bg-gray-lemon-dark-header py-2">
+                            <span>S</span>
+                            <span className="sr-only sm:not-sr-only">un</span>
+                        </div>
+                        <div className="flex justify-center bg-white dark:bg-gray-lemon-dark-header py-2">
                             <span>M</span>
                             <span className="sr-only sm:not-sr-only">on</span>
                         </div>
@@ -117,13 +121,10 @@ const CalendarEvents = ({month, year, calendarEvents, onChange}: CalendarProps) 
                             <span>S</span>
                             <span className="sr-only sm:not-sr-only">at</span>
                         </div>
-                        <div className="flex justify-center bg-white dark:bg-gray-lemon-dark-header py-2">
-                            <span>S</span>
-                            <span className="sr-only sm:not-sr-only">un</span>
-                        </div>
                     </div>
 
-                    <div className="flex bg-gray-200 dark:bg-gray-lemon-dark-border text-xs leading-6 text-gray-700 h-full flex-auto">
+                    <div
+                        className="flex bg-gray-200 dark:bg-gray-lemon-dark-border text-xs leading-6 text-gray-700 h-full flex-auto">
                         <div className="w-full grid grid-cols-7 grid-rows-6 gap-px">
                             {days.map((day, index) => {
 

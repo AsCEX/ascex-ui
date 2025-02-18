@@ -1,4 +1,7 @@
 import Row from "./Row";
+import clsx from "clsx";
+import {rowHeightTopClass} from "@components/DataTable/Utils/size.ts";
+import useDataTable from "@components/DataTable/Utils/useDataTable.tsx";
 
 interface PaneProps {
     items: unknown[],
@@ -9,8 +12,15 @@ interface PaneProps {
 
 function Pane({items, name, side, width = "auto"}: PaneProps) {
 
+    const { options} = useDataTable();
+    const { rowHeight} = options ?? {};
+
+
+
     return (
-        <div className={"pane " + name } >
+        <div className={clsx(name,
+            rowHeightTopClass[(rowHeight ? rowHeight : 'xs')],
+            "pane")} >
             <div
                 className={`${name}InnerContent paneInnerContent`}
                 style={{

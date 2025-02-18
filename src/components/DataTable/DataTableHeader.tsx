@@ -1,15 +1,22 @@
 // import useDataTable from "./Utils/useDataTable";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { HeaderTypes } from "./DataTableTypes";
+import clsx from "clsx";
+import { rowHeightClass } from "@components/DataTable/Utils/size.ts";
+import useDataTable from "@components/DataTable/Utils/useDataTable.tsx";
 
 interface DataTableHeaderProps {
   column?: number,
   className?: string,
-  options?: HeaderTypes
+  header: HeaderTypes
 }
 
-function DataTableHeader( props : DataTableHeaderProps ){
+function DataTableHeader( { className, header }: DataTableHeaderProps ){
 
+  const {
+    options,
+  } = useDataTable();
+  const rowHeight = options?.rowHeight ?? null;
   const dropdownRef = useRef(null);
   // const searchInput = useRef(null);
   // const colResizeRef = useRef(null);
@@ -19,7 +26,7 @@ function DataTableHeader( props : DataTableHeaderProps ){
   // const [isOpen, ] = useState(false)
   // const [sort, setSort] = useState(0);
   // const [search, setSearch] = useState("");
-  const [options, ] = useState(props?.options);
+  // const [options, ] = useState(props?.options);
   // const columnSearch = false;
   // const {
   //   resizable
@@ -142,18 +149,21 @@ function DataTableHeader( props : DataTableHeaderProps ){
   }
 */
 
+  const rowHeightCls: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = rowHeight ?? "xs";
   return (
     <div
-      className={"cell " +
-      "bg-slate-50 dark:bg-table-header-bg-dark " +
-      "text-table-header-text-color-dark dark:text-table-header-text-color-dark " +
-      "border-l-[1px] border-l-slate-200 dark:border-l-table-border-color-dark " +
-      "border-b-[1px] border-b-slate-200 dark:border-b-table-border-color-dark " +
-      "relative z-10 " + props.className}
-      style={{ left: (options?.left ?? 0) -1, width: options?.width ?? 177, minWidth: options?.width ?? 177 }}
+      className={clsx("cell",
+      rowHeightClass[rowHeightCls],
+      "bg-slate-50 dark:bg-table-header-bg-dark",
+      "text-table-header-text-color-dark dark:text-table-header-text-color-dark ",
+      "border-l-[1px] border-l-slate-200 dark:border-l-table-border-color-dark ",
+      "border-b-[1px] border-b-slate-200 dark:border-b-table-border-color-dark ",
+      "relative z-10 ",
+      className)}
+      style={{ left: (header?.left ?? 0) -1, width: header?.width ?? 120, minWidth: header?.width ?? 120 }}
       ref={dropdownRef}
     >
-      <div className="contentWrapper relative cursor-pointer group zheader"
+      <div className="contentWrapper relative cursor-pointer group zheader "
            // onClick={ () => toggle() }
       >
         {/*{ (sort > 0 || search !== "") &&
@@ -161,15 +171,13 @@ function DataTableHeader( props : DataTableHeaderProps ){
           <span className="animate-pulse absolute inline-flex h-full w-full bg-orange-200 opacity-75"></span>
           <span className="relative inline-flex h-full w-full bg-orange-300"></span>
         </span> }*/}
-        <div className="dataWrapper">
-                  <span className="data">
-                    <div className="text-xs line-height-4 font-family-default font-weight-default truncate">
-                      {options?.label}
+        <div className="dataWrapper flex h-full w-full pl-2 justify-start items-center">
+                    <div className="line-height-4 font-family-default font-weight-default truncate">
+                      {header?.label}
                     </div>
                     {/*{ (options?.searchable || options?.sortable) &&
                     <div className={"absolute right-[-12px] top-[2px] cursor-pointer text-[#ffbe99] group-hover:text-[#fe8640]"}><i className={"fa fa-ellipsis-v"}></i></div>
                     }*/}
-                  </span>
         </div>
 
       </div>

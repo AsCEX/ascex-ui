@@ -8,21 +8,6 @@
     height: 1px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
 .truncate {
     max-width: 100%;
     overflow: hidden;
@@ -60,7 +45,7 @@
 
 .grid-view .pane-container {
     position: absolute;
-    font-size: 13px;
+    /*font-size: 13px;*/
     top: 0px;
     bottom: 64px;
     left: 0;
@@ -157,14 +142,14 @@
 }
 
 .headerRow .contentWrapper .dataWrapper{
-    position: absolute;
+    /*position: absolute;
     left: 0px;
     right: 22px;
     top: 7px;
     display: block;
     vertical-align: top;
     height: 16px;
-    line-height: 16px;
+    line-height: 16px;*/
 }
 .headerRow .contentWrapper .dataWrapper .data{
     position: absolute;
@@ -247,8 +232,7 @@
 
 .cell {
     position: absolute;
-    font-size: 13px;
-    height: 32px;
+    /*font-size: 13px;*/
     padding: 0;
     margin: 0;
     vertical-align: top;
@@ -273,7 +257,6 @@
     /*border-bottom: 1px solid hsl(0,0%,82%);*/
     border-top: none;
     /*border-left: 1px solid hsl(202,10%,88%);*/
-    padding-top: 2px;
 }
 
 .headerRow.rightPane>.cell:last-child {
@@ -284,7 +267,7 @@
     position: absolute;
     /*background-color: #f5f5f5;*/
     /*border-bottom: 1px solid hsl(0,0%,82%);*/
-    height: 32px;
+    /*height: 32px;*/
 }
 
 .grid-view .headerRow .staticCell .rowNumber {
@@ -307,14 +290,14 @@
 }
 
 .grid-view .pane-container .pane.dataLeftPane {
-    top: 32px;
+    /*top: 32px;*/
     bottom: 0;
     z-index: 2;
     /*background-color: #f9f9f9;*/
 }
 
 .grid-view .pane-container .pane.dataRightPane {
-    top: 32px;
+    /*top: 32px;*/
     bottom: 0;
     z-index: 0;
     width: fit-content;
@@ -342,7 +325,7 @@
     position: absolute;
     z-index: 2;
     width: 44px;
-    height: 32px;
+    /*height: 32px;*/
     /*border-bottom: 1px solid hsl(202,10%,88%);*/
     font-size: 0;
 }

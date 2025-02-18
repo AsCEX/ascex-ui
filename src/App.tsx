@@ -18,7 +18,7 @@ function App() {
                     <div className="mr-2 h-4 w-px bg-gray-200 dark:bg-gray-800" />
                     <Breadcrumbs pathname={"/users/employees"} />
                 </header>
-                <main>
+                <main className={"main flex h-full w-full overflow-auto dark:bg-gray-800"}>
                     <Dashboard />
                 </main>
             </div>

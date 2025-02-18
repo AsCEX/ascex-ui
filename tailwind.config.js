@@ -1,8 +1,7 @@
-import { Config } from "tailwindcss"
-const colors = require('tailwindcss/colors');
-import { colors as grayLemonColors } from './src/utils/colors'
+import { ascexUIColor } from "./src/utils/colors";
 
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+export default {
   darkMode: 'class',
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -40,23 +39,27 @@ const config: Config = {
         'modal-bg-dark': '#222831',
         'modal-bg-overlay': 'rgba(34,40,49,0.47)',
 
-        gray: {
-          400: "#dfe1e5",
-          925: "#2a2d30"
+        gray: { 925: "#2a2d30" },
+        table: {
+          primary: '#1e2022'
         },
+
         "gray-lemon": {
           dark: {
             // accent: '#d1bc78',
-            accent: grayLemonColors.gray[100],
-            'accent-hover': grayLemonColors.gray[50],
+            accent: ascexUIColor.gray[100],
+            'accent-hover': ascexUIColor.gray[50],
             'accent-muted': '#363636',
-            text: grayLemonColors.gray['10'],
-            primary: grayLemonColors.gray['100'],
-            secondary: grayLemonColors.gray['50'],
-            border: grayLemonColors.gray['80'],
+            text: ascexUIColor.gray['10'],
+            header: '#222831',
+            disabled: '#1d222b',
+            primary: ascexUIColor.gray['100'],
+            secondary: ascexUIColor.gray['50'],
+            border: ascexUIColor.gray['80'],
             sidebar: {
-              border: grayLemonColors.gray['100'],
-              divider: grayLemonColors.gray['80'],
+              divider: ascexUIColor.gray['80'],
+              border: ascexUIColor.gray['80'],
+              // border: '#262c33',
               link: {
                 text: '',
                 background: '',
@@ -68,21 +71,26 @@ const config: Config = {
                 },
               },
               subLink: {
-                text: grayLemonColors.gray['10'],
+                text: ascexUIColor.gray['10'],
                 background: '',
-                indicator: grayLemonColors.gray['100'],
+                indicator: ascexUIColor.gray['100'],
                 border: '',
                 active: {
                   text: '',
-                  background: grayLemonColors.gray['100'],
-                  indicator: grayLemonColors.gray['10'],
-                  border: grayLemonColors.gray['80'],
+                  background: '#0b1520',
+                  indicator: ascexUIColor.gray['10'],
+                  border: ascexUIColor.gray['80'],
                 },
               },
             },
+            scrollbar: {
+              background: ascexUIColor.gray['50'],
+              handle: ascexUIColor.gray['30'],
+              'handle-hover': ascexUIColor.gray['20'],
+            },
             button: {
-              DEFAULT: grayLemonColors[50],
-              hover: grayLemonColors[80],
+              DEFAULT: ascexUIColor[50],
+              hover: ascexUIColor[80],
             }
           }
         },
@@ -129,6 +137,5 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [],
 }
-export default config

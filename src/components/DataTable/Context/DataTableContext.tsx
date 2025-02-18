@@ -80,7 +80,6 @@ export const DataTableProvider = ({ children, options, headers, items, height, n
         leftPaneWidth
     } = buildHeaders();
 
-
     const tableData = {
         name,
         options: {
@@ -91,7 +90,6 @@ export const DataTableProvider = ({ children, options, headers, items, height, n
             leftPaneWidth: leftPaneWidth ?? 0,
             paddingLeft: leftPaneWidth,
             paddingWidth: 80,
-            rowHeight: 32,
             rowNumberWidth: 48
         },
         headers: _headers,

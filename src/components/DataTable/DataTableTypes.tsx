@@ -1,18 +1,22 @@
 import {ReactNode, RefObject} from "react";
 
 export interface HeaderTypes {
+    badgeClass?: string;
     className?: string,
     columnIndex?: number,
-    name: string,
-    label?: string,
+    dateFormat?: string,
     freeze?: boolean,
     key?: string,
-    width?: number,
+    label?: string,
     left?: number,
+    lists?: { id: unknown; text?: string; className?: string }[];
+    min?: number;
+    name: string,
+    onClick?: (item: unknown) => void;
+    render?: (data: unknown, row: unknown) => ReactNode,
     showMenu?: boolean,
     type?: string,
-    render?: (data: unknown, row: unknown) => ReactNode,
-    dateFormat?: string
+    width?: number,
 }
 
 export interface DataTableOptionTypes {
@@ -21,7 +25,7 @@ export interface DataTableOptionTypes {
     resizable?: boolean,
     height?: number | string | null,
     leftPaneWidth?: number,
-    rowHeight?: number,
+    rowHeight?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined,
     rowNumberWidth?: number,
     paddingWidth?: number,
     scrollXRef?: RefObject<HTMLDivElement>
@@ -61,7 +65,6 @@ const DataTableTypes = {
     leftPaneWidth: 75,
     paddingWidth: 80,
     freezePane: 0,
-    rowHeight: 32,
     rowNumberWidth: 48,
     selectedItems: [],
     controller: new AbortController(),

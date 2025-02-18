@@ -193,7 +193,7 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
                     className={cx(triggerStyles({ hasError }), className, 'w-auto')}
                     {...props}
                 >
-                    <span className="flex-1 overflow-hidden text-sm text-ellipsis whitespace-nowrap text-right text-gray-900 dark:text-gray-50">
+                    <span className="flex-1 overflow-hidden text-xs text-ellipsis whitespace-nowrap text-right text-gray-900 dark:text-gray-lemon-dark-text">
             {children ? (
                 children
             ) : placeholder ? (
