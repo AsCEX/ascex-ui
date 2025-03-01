@@ -91,6 +91,9 @@ export default {
             button: {
               DEFAULT: ascexUIColor[50],
               hover: ascexUIColor[80],
+            },
+            calendar: {
+              selected: '#1f6847'
             }
           }
         },

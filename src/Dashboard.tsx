@@ -19,10 +19,18 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger, DatePicker, DropdownMenuItem,
+    DialogTrigger,
+    DatePicker,
+    DropdownMenuItem,
     DropdownMenu,
-    DropdownMenuContent, DropdownMenuSeparator, DropdownMenuGroup, DropdownMenuTrigger, DropdownMenuLabel, DataTable
+    DropdownMenuContent,
+    DropdownMenuSeparator,
+    DropdownMenuGroup,
+    DropdownMenuTrigger,
+    DropdownMenuLabel,
+    CalendarEvents
 } from "./main.ts";
+// import Chkbox from "./Chkbox.tsx";
 
 const presets = [
     {
@@ -191,7 +199,20 @@ function Dashboard() {
             </div>
             <div className="flex flex-col h-full w-full overflow-x-auto">
                 <div className={"flex h-full justify-between items-center"}>
-                    <DataTable
+                    <div className="flex flex-col overflow-x-auto w-full h-full">
+                        <CalendarEvents
+                            onChange={()=>{}}
+                            calendarEvents={[]}
+                            month={2}
+                            year={2025}
+                            onSelectChange={(selectedDates) => {
+                                console.log('dashboard', selectedDates);
+                            }}
+                        />
+                    </div>
+                    <div>
+                    </div>
+                    {/*<DataTable
                         name={"dt-products"}
                         items={[
                             {
@@ -490,7 +511,7 @@ function Dashboard() {
                         options={{
                             rowHeight: "sm"
                         }}
-                    />
+                    />*/}
                 </div>
                 {/*<TremorTable headers={headers} data={workspaces}/>*/}
             </div>

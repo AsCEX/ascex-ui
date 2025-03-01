@@ -42,14 +42,16 @@ const Cell = ({ header, item }: CellProps) => {
         }
 
         return (
-          <div className={"flex w-full " + textColor}>
+          <div className={"flex p-2 w-full " + textColor}>
             <div className={"justify-start"}>₱</div>
             <div className={"justify-end ml-auto"}>{html}</div>
           </div>
         );
       }
       case "decimal":
-        return data ? accounting.formatMoney(data) : "";
+        return <div className={"p-2"}>
+          {data && accounting.formatMoney(data)}
+        </div>
       case "date": {
         const dateFormat = header?.dateFormat ?? "L";
         const dateF = data ? moment(data).format(dateFormat) : "";
