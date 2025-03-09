@@ -1,6 +1,8 @@
 
 export {default as AuthProvider} from "@contexts/AuthContext";
 export type { AuthContextType, AuthProviderProps } from "auth";
+export type { CalendarEventProps } from "calendar";
+export type { TimelogsType } from "timelogs";
 export {default as useAuth} from "@hooks/useAuth";
 export {default as useCalendar} from "@hooks/useCalendar";
 
@@ -100,6 +102,7 @@ export {
     hasErrorInput
 } from "@utils/utils"
 
+export { formatMoney } from "@utils/formatMoney";
 export { ascexUIColor } from "@utils/colors";
 export { default as tailwindPresets } from "./tailwind-presets.ts";
 

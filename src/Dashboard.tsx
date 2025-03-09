@@ -41,7 +41,7 @@ const presets = [
         },
     },
     {
-        label: "Last 7 days",
+        label: "February 01-15, 2025",
         dateRange: {
             from: new Date(new Date().setDate(new Date().getDate() - 7)),
             to: new Date(),
@@ -203,7 +203,11 @@ function Dashboard() {
                         <CalendarEvents
                             onChange={()=>{}}
                             calendarEvents={[]}
-                            month={2}
+                            dateRange={{
+                                from: new Date('2025-03-01'),
+                                to: new Date('2025-03-15'),
+                            }}
+                            month={3}
                             year={2025}
                             onSelectChange={(selectedDates) => {
                                 console.log('dashboard', selectedDates);

@@ -2,33 +2,40 @@ import clsx from 'clsx';
 import moment from 'moment';
 import useCalendar from "@hooks/useCalendar";
 import {useState} from "react";
-
-
-interface CalendarEventProps {
-    date?: string ,
-    time_in?: string | undefined,
-    time_out?: string | undefined
-}
+import {
+    DateRange
+} from '@components/DatePicker/DatePicker';
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "../../main.ts";
+import {TimelogsType} from "timelogs";
 
 interface CalendarProps {
-    calendarEvents?: CalendarEventProps[],
+    calendarEvents?: TimelogsType[],
+    dateRange?: DateRange,
     month: number,
     year: number
     onChange?: (newDate: Date) => void
     onSelectChange?: (selectedDates: string[]) => void
+    onShowEventDetail?: (eventDetail: TimelogsType | null) => JSX.Element
+    onCloseEventDetail?: () => void
 }
 
-const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange}: CalendarProps) => {
+const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, onShowEventDetail, onCloseEventDetail, dateRange}: CalendarProps) => {
 
     const { getMonthDays } = useCalendar();
     const currentDate = moment({ year: year, month: (month ?? 0) - 1 }).toDate();
     const days = getMonthDays(moment(currentDate).year(), moment(currentDate).month() + 1);
 
-
-    // const [startCellDate, setStartCellDate] = useState<Date | null>(null);
-    // const [endCellDate, setEndCellDate] = useState<Date | null>(null);
     const [isDragging, setIsDragging] = useState(false);
-    const [selectedDates, setSelectedDates] = useState<string[]>([]);
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState<TimelogsType | null>(null);
+
+    const defaultEvents: string[] = [];
+    for(const calendarEvent of calendarEvents ?? []){
+        if(calendarEvent?.date){
+            defaultEvents.push(calendarEvent?.date);
+        }
+    }
+    const [selectedDates, setSelectedDates] = useState<string[]>(defaultEvents);
 
     const handleMouseDown = ( date: string ) => {
         const selectedDate = new Date(date);
@@ -48,13 +55,6 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange}:
         setIsDragging(false);
     };
 
-    /*const isCellSelected = ( date: string ) => {
-        if (!startCellDate || !endCellDate) return false;
-
-        const selectedDate = new Date(date);
-
-        return selectedDate.getTime() >= startCellDate.getTime() && selectedDate.getTime() <= endCellDate.getTime();
-    };*/
 
     const getEvent = ( date: string ) => {
         if( calendarEvents ){
@@ -64,7 +64,7 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange}:
                 }
             }
         }
-        return ;
+        return null;
     }
     const toggleCheckbox = ( isChecked: boolean, date: string ) => {
         const newSelectedDates = [ ...selectedDates ];
@@ -85,10 +85,32 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange}:
         }
     }
 
+    const inRange = ( currentDate: string ) => {
+        const start = moment(dateRange?.from);
+        const end = moment(dateRange?.to);
+        return moment(currentDate).isBetween(start, end, 'days', '[]');
+    }
+
+    const eventDetails = ( day: any ): void => {
+        const dayEvent = getEvent(day.date)
+        setSelectedEvent(dayEvent);
+        setOpenModal(true);
+
+    }
+
+    const eventDetailView = (): JSX.Element => {
+        console.log('edv', selectedEvent);
+        if( onShowEventDetail ){
+            return onShowEventDetail( selectedEvent );
+        }
+
+        return <></>;
+    }
+
 
     return (
         <>
-            <div className="flex h-full flex-col ">
+            <div className="flex h-full flex-col">
                 <header
                     className="flex items-center justify-between border-b border-gray-200 dark:border-gray-lemon-dark-border px-6 py-4">
                     <h1 className="text-base font-semibold leading-6 text-gray-900 dark:text-gray-lemon-dark-text">
@@ -179,25 +201,26 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange}:
                     <div
                         className="flex bg-gray-200 dark:bg-gray-lemon-dark-border text-xs leading-6 text-gray-700 h-full flex-auto">
                         <div className="w-full grid grid-cols-7 grid-rows-6 gap-px" onMouseUp={handleMouseUp}>
-                            {days.map((day, index) => {
+                            {days.map((day : any, index) => {
 
                                 const dayEvents = getEvent(day.date);
-                                const timeIn = moment(dayEvents?.time_in ?? null).format('LT');
-                                const timeOut = moment(dayEvents?.time_out ?? null).format('LT');
+                                const timeIn = dayEvents?.time_in ? moment(dayEvents?.time_in).format('LT') : '';
+                                const timeOut = dayEvents?.time_out ? moment(dayEvents?.time_out).format('LT') : '';
 
                                 return <label key={"days-" + index}
                                             htmlFor={"cc_box_" + day.date}
                                             className={clsx(
-                                                "relative px-3 select-none py-2 text-gray-500 cursor-crosshair md:cursor-pointer",
+                                                "relative px-3 select-none py-2 text-gray-500 cursor-pointer",
                                                 day.isCurrentMonth ? "bg-white dark:bg-gray-lemon-dark-primary" : "bg-gray-50 dark:bg-gray-lemon-dark-disabled",
-                                                "[&:has(input:checked)]:border-b-4 [&:has(input:checked)]:border-gray-lemon-dark-calendar-selected"
+                                                // "[&:has(input:checked)]:border-b-4 [&:has(input:checked)]:border-gray-lemon-dark-calendar-selected",
+                                                !inRange(day.date) ? "opacity-50 !cursor-not-allowed pointer-events-none" : "",
                                             )}
                                             onMouseDown={() => handleMouseDown(day.date)}
                                             onMouseEnter={handleMouseEnter}
                                 >
 
                                     <time className={"flex gap-2"} dateTime={day.date}>
-                                        <input
+                                        { inRange(day.date) && <input
                                             className={" right-4 top-4"}
                                             name={"cc_box_" + day.date}
                                             id={"cc_box_" + day.date}
@@ -207,24 +230,26 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange}:
                                             }}
                                             type={"checkbox"}
                                             checked={selectedDates.includes(day.date)}
-                                        />{day.day}
+                                        /> }
+
+                                        {day.day}
                                     </time>
 
                                     {
-                                        dayEvents &&
+                                        (selectedDates.includes(day.date)) &&
                                         <ol className="mt-2 w-full absolute bottom-0 left-0 xl:block">
                                             <li className={clsx(
                                                 "bg-green-400",
                                                 "xl:h-4"
-                                            )}>
+                                            )} onClick={() => eventDetails(day)}>
                                                 <a href="#" className="group flex">
-                                                <time dateTime=""
-                                                                  className="flex-none w-full text-center text-green-800 xl:text-xs group-hover:text-green-900 xl:block">
-                                                                <span>{timeIn}</span><span> - {timeOut}</span>
-                                                            </time>
-                                                        </a>
-                                                    </li>
-                                            </ol>
+                                                    <time dateTime=""
+                                                          className="flex-none w-full text-center text-green-800 xl:text-xs group-hover:text-green-900 xl:block">
+                                                        <span>{timeIn}</span><span> - {timeOut}</span>
+                                                    </time>
+                                                </a>
+                                            </li>
+                                        </ol>
                                     }
                                 </label>
                             })}
@@ -235,6 +260,24 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange}:
 
                 </div>
             </div>
+
+
+            <Dialog open={openModal} onOpenChange={(isOpen) => {
+                setOpenModal(isOpen);
+                if(!isOpen) {
+                    if(onCloseEventDetail) onCloseEventDetail();
+                }
+            }}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Details</DialogTitle>
+                        <DialogDescription/>
+                        <div className={"flex flex-col p-6 pt-0 overflow-y-auto h-full"}>
+                            {eventDetailView()}
+                        </div>
+                    </DialogHeader>
+                </DialogContent>
+            </Dialog>
         </>
     );
 }

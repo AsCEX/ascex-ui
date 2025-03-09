@@ -3,12 +3,9 @@ import DataTableNotFound from "./DataTableNotFound";
 import { Body, Footer } from "./Partials";
 import {useRef} from 'react';
 import "./DataTable.css";
-import accounting from "accounting";
 import DataTableLoader from "./DataTableLoader.js";
 import {DataTableProvider} from "./Context/DataTableContext";
 import {DataTableContextProps} from "@components/DataTable/DataTableTypes";
-
-accounting.settings.currency.symbol = "";
 
 function DataTable( {
     footer,

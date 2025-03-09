@@ -619,7 +619,7 @@ const SingleDatePicker = ({
                         {presets && presets.length > 0 && (
                             <div
                                 className={cx(
-                                    "relative flex h-14 w-full items-center sm:h-full sm:w-40",
+                                    "relative flex h-14 w-full items-center sm:h-full sm:w-60",
                                     "border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-800",
                                     "overflow-auto",
                                 )}
@@ -921,7 +921,7 @@ const RangeDatePicker = ({
                         {presets && presets.length > 0 && (
                             <div
                                 className={cx(
-                                    "relative flex h-16 w-full items-center sm:h-full sm:w-40",
+                                    "relative flex h-16 w-full items-center sm:h-full sm:w-60",
                                     "border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-800",
                                     "overflow-auto",
                                 )}

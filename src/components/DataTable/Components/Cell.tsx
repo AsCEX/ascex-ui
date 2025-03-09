@@ -1,5 +1,5 @@
 import React from "react";
-import accounting from "accounting";
+import { formatMoney } from "@utils/formatMoney";
 import moment from "moment";
 import {JSONPath} from 'jsonpath-plus';
 import {HeaderTypes} from "@components/DataTable/DataTableTypes.tsx";
@@ -38,7 +38,7 @@ const Cell = ({ header, item }: CellProps) => {
             data = min;
           }
 
-          html = accounting.formatMoney(data);
+          html = formatMoney(data);
         }
 
         return (
@@ -50,7 +50,7 @@ const Cell = ({ header, item }: CellProps) => {
       }
       case "decimal":
         return <div className={"p-2"}>
-          {data && accounting.formatMoney(data)}
+          {data && formatMoney(data)}
         </div>
       case "date": {
         const dateFormat = header?.dateFormat ?? "L";
@@ -120,7 +120,7 @@ const Cell = ({ header, item }: CellProps) => {
       <div className="flex-auto" style={{ padding: 0 }}>
         <div
           className={clsx(
-            "w-full flex line-height-4 whitespace-nowrap cell-wrap",
+            "w-full h-full flex line-height-4 whitespace-nowrap cell-wrap",
             (header?.className ?? "")
           )}
           onClick={() => {
