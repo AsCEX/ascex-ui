@@ -75,7 +75,7 @@ function Footer({children} : FooterProps) {
             </div>
             <div className={'paginationInfo text-right ml-auto flex text-xs items-center justify-end'}>
             <span className={'dark:text-white'}>
-              Displaying 1 to 50 of 130 items
+              {/*Displaying 1 to 50 of 130 items*/}
             </span>
             </div>
         </div>

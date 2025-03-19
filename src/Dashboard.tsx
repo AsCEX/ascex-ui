@@ -27,8 +27,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuGroup,
     DropdownMenuTrigger,
-    DropdownMenuLabel,
-    CalendarEvents
+    DropdownMenuLabel, DataTable
 } from "./main.ts";
 // import Chkbox from "./Chkbox.tsx";
 
@@ -94,7 +93,7 @@ function Dashboard() {
     const [openModal, setOpenModal] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
     return (
-        <section className={"flex flex-col h-full"}>
+        <section className={"flex flex-col h-full w-full"}>
             <div className="flex flex-col justify-between gap-2 px-4 py-6 sm:flex-row sm:items-center sm:p-6">
                 <Input
                     type="search"
@@ -199,7 +198,7 @@ function Dashboard() {
             </div>
             <div className="flex flex-col h-full w-full overflow-x-auto">
                 <div className={"flex h-full justify-between items-center"}>
-                    <div className="flex flex-col overflow-x-auto w-full h-full">
+                   {/* <div className="flex flex-col overflow-x-auto w-full h-full">
                         <CalendarEvents
                             onChange={()=>{}}
                             calendarEvents={[]}
@@ -213,10 +212,9 @@ function Dashboard() {
                                 console.log('dashboard', selectedDates);
                             }}
                         />
-                    </div>
-                    <div>
-                    </div>
-                    {/*<DataTable
+                    </div>*/}
+
+                    <DataTable
                         name={"dt-products"}
                         items={[
                             {
@@ -515,7 +513,17 @@ function Dashboard() {
                         options={{
                             rowHeight: "sm"
                         }}
-                    />*/}
+                        cardTemplate={(row: any) => (
+                            <div className={"flex"}>
+                                <div className={"text-sm"}>
+                                    {row.first_name}
+                                </div>
+                                <div>
+
+                                </div>
+                            </div>
+                        )}
+                    />
                 </div>
                 {/*<TremorTable headers={headers} data={workspaces}/>*/}
             </div>

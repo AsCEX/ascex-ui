@@ -2,7 +2,7 @@ import * as DrawerPrimitives from "@radix-ui/react-dialog"
 import { RiCloseLine } from "@remixicon/react"
 import * as React from "react"
 
-import { cx, focusRing } from "@utils/utils"
+import { cx } from "@utils/utils"
 
 import { Button } from "@components/Button/Button"
 
@@ -77,12 +77,11 @@ const DrawerContent = React.forwardRef<
             // base
             "fixed inset-y-2 mx-auto flex w-[95vw] flex-1 flex-col overflow-y-auto rounded-md border p-4 shadow-lg focus:outline-none max-sm:inset-x-2 sm:inset-y-2 sm:right-2 sm:max-w-lg sm:p-6",
             // border color
-            "border-gray-200 dark:border-gray-900",
+            "border-gray-200 dark:border-gray-lemon-dark-border",
             // background color
             "bg-white dark:bg-[#090E1A]",
             // transition
             "data-[state=closed]:animate-drawerSlideRightAndFade data-[state=open]:animate-drawerSlideLeftAndFade",
-            focusRing,
             className,
           )}
           {...props}
@@ -101,7 +100,7 @@ const DrawerHeader = React.forwardRef<
   return (
     <div
       ref={ref}
-      className="flex items-start justify-between gap-x-4 border-b border-gray-200 pb-4 dark:border-gray-900"
+      className="flex items-start justify-between gap-x-4 border-b border-gray-200 pb-4 dark:border-gray-lemon-dark-border"
       {...props}
     >
       <div className={cx("mt-1 flex flex-col gap-y-1", className)}>
@@ -170,7 +169,7 @@ const DrawerFooter = ({
   return (
     <div
       className={cx(
-        "flex flex-col-reverse border-t border-gray-200 pt-4 sm:flex-row sm:justify-end sm:space-x-2 dark:border-gray-900",
+        "flex flex-col-reverse border-t border-gray-200 pt-4 sm:flex-row sm:justify-end sm:space-x-2 dark:border-gray-lemon-dark-border",
         className,
       )}
       {...props}

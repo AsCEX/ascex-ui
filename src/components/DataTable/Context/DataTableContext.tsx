@@ -6,7 +6,7 @@ const defaultLeftPaneWidth = 48;
 // eslint-disable-next-line react-refresh/only-export-components
 export const DataTableContext = createContext<DataTableContextProps>({} as DataTableContextProps);
 
-export const DataTableProvider = ({ children, options, headers, items, height, name }: DataTableContextProps) => {
+export const DataTableProvider = ({ cardTemplate, children, options, headers, items, height, name }: DataTableContextProps) => {
 
     // const tableOptions = {
     //     freezePane: 1,
@@ -81,6 +81,7 @@ export const DataTableProvider = ({ children, options, headers, items, height, n
     } = buildHeaders();
 
     const tableData = {
+        cardTemplate,
         name,
         options: {
             ...options,

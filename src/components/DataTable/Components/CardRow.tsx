@@ -1,4 +1,4 @@
-const Card = () => {
+const CardRow = () => {
     return (
         <>
             
@@ -6,4 +6,4 @@ const Card = () => {
     );
 }
 
-export default Card;
+export default CardRow;

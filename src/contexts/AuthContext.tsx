@@ -8,7 +8,8 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 const AuthProvider = ({children}: AuthProviderProps) => {
 
-    const [user, setUser] = useState<string | null | undefined>(undefined);
+    const [user, setUser] =
+        useState<string | null | undefined>(Cookies.get('user') ? JSON.parse(Cookies.get('user') ?? '') : undefined);
     const [token] = useState<string | null | undefined>( Cookies.get('laravel_session') ?? undefined);
     const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get("isLoggedIn") === "true");
     const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +29,7 @@ const AuthProvider = ({children}: AuthProviderProps) => {
         isLoading,
         setIsLoading,
         setIsLoggedIn,
+        setUser,
         login,
         logout,
         token,

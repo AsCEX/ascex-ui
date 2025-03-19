@@ -11,7 +11,7 @@ declare module 'auth' {
     }
 
     export type AuthContextType = {
-        user?: string | null,
+        user?: any | null,
         token?: string | null,
         isLoggedIn: boolean,
         isLoading: boolean,

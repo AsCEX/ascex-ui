@@ -58,9 +58,9 @@ const DialogContent = React.forwardRef<
                     ref={forwardedRef}
                     className={cx(
                         // base
-                        "fixed left-1/2 top-1/2 z-50 w-[95vw] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-md border p-0 shadow-lg",
+                        "fixed left-1/2 top-1/2 z-50 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-md border p-0 shadow-lg",
                         // border color
-                        "border-gray-200 dark:border-gray-900",
+                        "border-gray-200 dark:border-gray-lemon-dark-border",
                         // background color
                         "bg-white dark:bg-gray-lemon-dark-secondary",
                         // transition
@@ -93,7 +93,7 @@ const DialogHeader = ({
                 </svg>
             </button>
         </DialogClose>
-        <div className={cx("flex flex-col h-full gap-y-1 p-0", className)} {...props} />
+        <div className={cx("flex flex-col h-full p-0", className)} {...props} />
     </>
 }
 

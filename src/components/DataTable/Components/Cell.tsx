@@ -34,9 +34,9 @@ const Cell = ({ header, item }: CellProps) => {
           if (typeof data === "number") {
             textColor = min === null ? (!isNaN(data) && data < 0 ? "text-red-500" : "") : "";
           }
-          if (!isNaN(data as number) && !isNaN(min as number) && min !== null) {
-            data = min;
-          }
+          // if (!isNaN(data as number) && !isNaN(min as number) && min !== null) {
+          //   data = min;
+          // }
 
           html = formatMoney(data);
         }
@@ -58,7 +58,8 @@ const Cell = ({ header, item }: CellProps) => {
         return <div className={"grow text-right p-2"}>{dateF}</div>;
       }
       case "datetime": {
-        return data ? <div className={"p-2"}>{moment(data).format("L LT")}</div> : "";
+        const dateFormat = header?.dateFormat ?? "L LT";
+        return data ? <div className={"p-2"}>{moment(data).format(dateFormat)}</div> : "";
       }
       case "badge": {
         let label = data;

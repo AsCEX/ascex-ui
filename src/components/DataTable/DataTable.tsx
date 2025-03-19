@@ -6,8 +6,11 @@ import "./DataTable.css";
 import DataTableLoader from "./DataTableLoader.js";
 import {DataTableProvider} from "./Context/DataTableContext";
 import {DataTableContextProps} from "@components/DataTable/DataTableTypes";
+import BodyCard from "@components/DataTable/Partials/BodyCard.tsx";
+import { isMobile } from "react-device-detect";
 
 function DataTable( {
+    cardTemplate,
     footer,
     headers,
     items,
@@ -24,13 +27,14 @@ function DataTable( {
               height: options?.height ?? null,
               rowHeight: options?.rowHeight ?? "xs"
           }}
+          cardTemplate={cardTemplate}
           headers={headers}
           items={items} >
         <Grid>
           {!loaded && <DataTableLoader loadingRef={loadingRef}/> }
           {items.length === 0 && <DataTableNotFound/> }
           {loaded &&
-              <Body />
+              isMobile ? <BodyCard /> : <Body  />
           }
           <Footer>{footer}</Footer>
         </Grid>

@@ -33,9 +33,14 @@ export {
 export { Divider } from "@components/Divider/Divider";
 export {
     Drawer,
+    DrawerBody,
     DrawerClose,
     DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
     DrawerTitle,
+    DrawerTrigger
 } from "@components/Drawer/Drawer";
 export {
     DropdownMenu,
@@ -66,9 +71,11 @@ export {
 export {
     Select,
     SelectContent,
+    SelectGroup,
+    SelectGroupLabel,
     SelectItem,
     SelectTrigger,
-    SelectValue,
+    SelectValue
 } from "@components/Select/Select";
 
 export {
