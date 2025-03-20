@@ -34,7 +34,7 @@ export interface DataTableOptionTypes {
 export interface DataTableContextProps {
     className?: string,
     children?: ReactNode,
-    cardTemplate: (row: any) => JSX.Element,
+    cardTemplate?: (rowNumber: number, row: any) => JSX.Element,
     footer?: ReactNode,
     headers: HeaderTypes[],
     height?: number | string,

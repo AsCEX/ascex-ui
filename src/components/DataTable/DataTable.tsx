@@ -7,7 +7,7 @@ import DataTableLoader from "./DataTableLoader.js";
 import {DataTableProvider} from "./Context/DataTableContext";
 import {DataTableContextProps} from "@components/DataTable/DataTableTypes";
 import BodyCard from "@components/DataTable/Partials/BodyCard.tsx";
-import { isMobile } from "react-device-detect";
+import { useIsMobile } from "@hooks/useMobile"
 
 function DataTable( {
     cardTemplate,
@@ -19,6 +19,7 @@ function DataTable( {
     options,
 }: DataTableContextProps ){
     const loadingRef = useRef(null);
+    const isMobile = useIsMobile();
 
   return (
       <DataTableProvider
@@ -34,7 +35,7 @@ function DataTable( {
           {!loaded && <DataTableLoader loadingRef={loadingRef}/> }
           {items.length === 0 && <DataTableNotFound/> }
           {loaded &&
-              isMobile ? <BodyCard /> : <Body  />
+              isMobile && cardTemplate ? <BodyCard /> : <Body  />
           }
           <Footer>{footer}</Footer>
         </Grid>

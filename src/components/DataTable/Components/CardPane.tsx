@@ -21,7 +21,7 @@ const CardPane = ({ items }: CardPaneProps) => {
                             "data-[state=checked]:border-blue-500 data-[state=checked]:dark:border-blue-500",
                             "data-[disabled]:border-gray-100 data-[disabled]:dark:border-gray-lemon-dark-border data-[disabled]:bg-gray-50 data-[disabled]:shadow-none data-[disabled]:dark:bg-gray-lemon-dark-primary",
                             "focus:ring-2 focus:ring-blue-200 focus:dark:ring-blue-700/30 focus:border-blue-500 focus:dark:border-blue-700 dark:bg-gray-lemon-dark-secondary")}>
-                    {cardTemplate(item)}
+                    {cardTemplate && cardTemplate(index, item)}
                 </div>
             ))}
             

@@ -513,16 +513,7 @@ function Dashboard() {
                         options={{
                             rowHeight: "sm"
                         }}
-                        cardTemplate={(row: any) => (
-                            <div className={"flex"}>
-                                <div className={"text-sm"}>
-                                    {row.first_name}
-                                </div>
-                                <div>
 
-                                </div>
-                            </div>
-                        )}
                     />
                 </div>
                 {/*<TremorTable headers={headers} data={workspaces}/>*/}

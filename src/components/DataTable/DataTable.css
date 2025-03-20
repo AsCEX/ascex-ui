@@ -112,7 +112,7 @@
 .grid-view .pane-container .pane.header-left-pane {
     position: sticky;
     height: 32px;
-    top: 0;
+    top: -1px;
     z-index: 3;
     overflow: visible;
     /*background-color: #f2f2f2;*/

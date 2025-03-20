@@ -8,10 +8,10 @@ import "./Sidebar.css";
 import { cx, focusRing } from "@utils/utils"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { RiCloseLine } from "@remixicon/react"
-import { PanelLeft } from "lucide-react"
 import * as React from "react"
 import { Button } from "@components/Button/Button"
 import {useSidebar} from "../../main.ts";
+import clsx from "clsx";
 
 const Sidebar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
     (
@@ -28,7 +28,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
                     <DrawerContent
                         // data-sidebar="sidebar"
                         // data-mobile="true"
-                        className="bg-gray-50 p-0 text-gray-900"
+                        className={clsx("bg-gray-50 p-0 text-gray-900", className)}
                     >
                         <VisuallyHidden.Root>
                             <DrawerTitle>Sidebar</DrawerTitle>
@@ -88,7 +88,7 @@ Sidebar.displayName = "Sidebar"
 const SidebarTrigger = React.forwardRef<
     React.ComponentRef<"button">,
     React.ComponentPropsWithRef<"button">
->(({ onClick, ...props }, ref) => {
+>(({ children, onClick, ...props }, ref) => {
     const { toggleSidebar } = useSidebar()
 
     return (
@@ -105,11 +105,7 @@ const SidebarTrigger = React.forwardRef<
             }}
             {...props}
         >
-            <PanelLeft
-                className="size-[18px] shrink-0 text-gray-700 dark:text-gray-300"
-                aria-hidden="true"
-            />
-            <span className="sr-only">Toggle Sidebar</span>
+            {children}
         </button>
     )
 })
