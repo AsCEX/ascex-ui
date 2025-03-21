@@ -1,7 +1,7 @@
 {
   "name": "ascex-ui",
   "private": false,
-  "version": "0.1.50",
+  "version": "0.1.51",
   "type": "module",
   "files": [
     "dist"
@@ -39,6 +39,7 @@
     "ascex-ui": "^0.0.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.5.0",
     "js-cookie": "^3.0.5",
     "jsonpath-plus": "^10.2.0",
     "lodash": "^4.17.21",
