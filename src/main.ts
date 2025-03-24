@@ -10,7 +10,9 @@ export {default as Text } from '@components/Text/Text';
 export { Badge } from "@components/Badge/Badge";
 export { Breadcrumbs } from "@components/Breadcrumbs/Breadcrumbs";
 export { Button, buttonVariants, type ButtonProps } from '@components/Button/Button';
+
 export { default as CalendarEvents }  from "@components/CalendarEvents/CalendarEvents"
+export { Card, type CardProps } from '@components/Card/Card';
 export { default as DataTable } from '@components/DataTable/DataTable';
 export {
     DatePicker,
@@ -58,11 +60,10 @@ export {
 } from "@components/DropdownMenu/DropdownMenu";
 
 export { Input } from "@components/Input/Input";
-
-
-export { default as TremorTable } from '@components/TremorTable/TremorTable';
-export { default as IndeterminateCheckbox } from '@components/TremorTable/IndeterminateCheckbox';
 export { Label } from '@components/Label/Label';
+
+
+export { Popover, PopoverAnchor, PopoverClose, PopoverContent, PopoverTrigger } from "@components/Popover/Popover";
 export {
     RadioCardGroup,
     RadioCardIndicator,
@@ -97,6 +98,8 @@ export {
     SidebarSubLink,
     SidebarTrigger,
 } from '@components/Sidebar/Sidebar';
+export { default as SpeedDial } from "@components/SpeedDial/SpeedDial"
+
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/Tabs/Tabs";
 export { Toast } from "@components/Toast/Toast";
 export { Toaster } from "@components/Toast/Toaster";

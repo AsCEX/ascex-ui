@@ -22,15 +22,17 @@ export default defineConfig({
       fileName: 'ascex-ui'
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', 'lodash', '@radix-ui'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          'react/jsx-runtime': 'react/jsx-runtime'
+          'react/jsx-runtime': 'react/jsx-runtime',
+          'lodash': 'lodash',
+          '@radix-ui': '@radix-ui'
         }
       }
-    }
+    },
   }
 
 })

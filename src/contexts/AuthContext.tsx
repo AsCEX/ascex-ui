@@ -16,6 +16,7 @@ const AuthProvider = ({children}: AuthProviderProps) => {
 
     const logout = () => {
         Cookies.remove("isLoggedIn");
+        Cookies.remove("user");
         setUser(undefined);
         setIsLoggedIn(false);
     }

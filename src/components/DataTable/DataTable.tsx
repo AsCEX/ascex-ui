@@ -37,7 +37,7 @@ function DataTable( {
           {loaded &&
               isMobile && cardTemplate ? <BodyCard /> : <Body  />
           }
-          <Footer>{footer}</Footer>
+            {footer && <Footer>{footer}</Footer>}
         </Grid>
       </DataTableProvider>
   );
