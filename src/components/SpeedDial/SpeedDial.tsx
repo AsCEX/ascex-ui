@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { Plus} from "lucide-react";
+import clsx from "clsx";
 
 interface SpeedDialActionTypes {
     icon: JSX.Element;
@@ -11,15 +12,16 @@ interface SpeedDialActionTypes {
 
 interface SpeedDialProps {
     actions: SpeedDialActionTypes[];
+    className?: string;
 }
 
-const SpeedDial = ({actions}: SpeedDialProps) => {
+const SpeedDial = ({actions, className}: SpeedDialProps) => {
     const [open, setOpen] = useState(false);
 
     const toggleOpen = () => setOpen(!open);
 
     return createPortal(
-        <div className="fixed bottom-8 right-8 flex flex-col items-end gap-2 z-10">
+        <div className={clsx("fixed bottom-8 right-8 flex flex-col items-end gap-2 z-10", className)}>
             {open && (
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}

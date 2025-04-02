@@ -1,9 +1,9 @@
 
-export {default as AuthProvider} from "@contexts/AuthContext";
-export type { AuthContextType, AuthProviderProps } from "auth";
+// export {default as AuthProvider} from "@contexts/AuthContext";
+// export type { AuthContextType, AuthProviderProps } from "auth";
+// export {default as useAuth} from "@hooks/useAuth";
 export type { CalendarEventProps } from "calendar";
 export type { TimelogsType } from "timelogs";
-export {default as useAuth} from "@hooks/useAuth";
 export {default as useCalendar} from "@hooks/useCalendar";
 
 export {default as Text } from '@components/Text/Text';
@@ -101,6 +101,7 @@ export {
 export { default as SpeedDial } from "@components/SpeedDial/SpeedDial"
 
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/Tabs/Tabs";
+export { Textarea, type TextareaProps } from "@components/TextArea/TextArea";
 export { Toast } from "@components/Toast/Toast";
 export { Toaster } from "@components/Toast/Toaster";
 export { useToast } from "@hooks/useToast";
