@@ -1,7 +1,7 @@
 {
   "name": "ascex-ui",
   "private": false,
-  "version": "0.1.65",
+  "version": "0.1.66",
   "type": "module",
   "files": [
     "dist"
@@ -39,7 +39,7 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^12.5.0",
     "js-cookie": "^3.0.5",
-    "jsonpath-plus": "^10.2.0",
+    "jsonpath-plus": "10.3.0",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.474.0",
@@ -71,7 +71,7 @@
     "tailwindcss": "3.4.17",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
-    "vite": "6.0.9",
+    "vite": "6.2.4",
     "vite-plugin-dts": "^4.5.0"
   }
 }
