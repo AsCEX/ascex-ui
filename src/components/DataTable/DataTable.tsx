@@ -11,6 +11,7 @@ import { useIsMobile } from "@hooks/useMobile"
 
 function DataTable( {
     cardTemplate,
+    cardHeader,
     footer,
     headers,
     items,
@@ -29,6 +30,7 @@ function DataTable( {
               rowHeight: options?.rowHeight ?? "xs"
           }}
           cardTemplate={cardTemplate}
+          cardHeader={cardHeader}
           headers={headers}
           items={items} >
         <Grid>

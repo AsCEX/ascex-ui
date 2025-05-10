@@ -1,7 +1,7 @@
 import {
     Drawer,
     DrawerClose,
-    DrawerContent,
+    DrawerContent, DrawerDescription,
     DrawerTitle,
 } from "@components/Drawer/Drawer"
 import "./Sidebar.css";
@@ -33,6 +33,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
                         <VisuallyHidden.Root>
                             <DrawerTitle>Sidebar</DrawerTitle>
                         </VisuallyHidden.Root>
+                        <DrawerDescription className={"hidden"}></DrawerDescription>
                         <div className="relative flex h-full w-full flex-col">
                             <DrawerClose className="absolute right-4 top-4" asChild>
                                 <Button

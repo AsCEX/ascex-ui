@@ -178,12 +178,13 @@ const triggerStyles = tv({
 interface TriggerProps
     extends React.ComponentProps<"button">,
         VariantProps<typeof triggerStyles> {
-    placeholder?: string
+    placeholder?: string,
+    showText?: boolean
 }
 
 const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
     (
-        { className, children, placeholder, hasError, ...props }: TriggerProps,
+        { className, children, placeholder, hasError, showText = true, ...props }: TriggerProps,
         forwardedRef,
     ) => {
         return (
@@ -193,15 +194,15 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
                     className={cx(triggerStyles({ hasError }), className, 'w-auto')}
                     {...props}
                 >
-                    <span className="flex-1 overflow-hidden text-xs text-ellipsis whitespace-nowrap text-right text-gray-900 dark:text-gray-lemon-dark-text">
-            {children ? (
-                children
-            ) : placeholder ? (
-                <span className="text-gray-400 dark:text-gray-lemon-dark-text">
-                {placeholder}
-              </span>
-            ) : null}
-          </span>
+                    {showText && <span className="flex-1 overflow-hidden text-xs text-ellipsis whitespace-nowrap text-right text-gray-900 dark:text-gray-lemon-dark-text">
+                        {children ? (
+                            children
+                        ) : placeholder ? (
+                            <span className="text-gray-400 dark:text-gray-lemon-dark-text">
+                            {placeholder}
+                          </span>
+                        ) : null}
+                      </span>}
                     <RiCalendar2Fill className="size-5 shrink-0 text-gray-400 dark:text-gray-lemon-dark-text" />
                 </button>
             </PopoverPrimitives.Trigger>
@@ -258,6 +259,7 @@ CalendarPopover.displayName = "DatePicker.CalendarPopover"
 type DateRange = {
     from: Date | undefined
     to?: Date | undefined
+    days?: number | undefined
 }
 
 interface Preset {
@@ -440,6 +442,7 @@ interface PickerProps extends CalendarProps {
     showTimePicker?: boolean
     placeholder?: string
     enableYearNavigation?: boolean
+    showText?: boolean
     disableNavigation?: boolean
     hasError?: boolean
     id?: string
@@ -457,6 +460,8 @@ interface PickerProps extends CalendarProps {
 
 interface SingleProps extends Omit<PickerProps, "translations"> {
     applyOnClose?: boolean,
+    applyOnChange?: boolean,
+    showText?: boolean,
     presets?: DatePreset[]
     defaultValue?: Date
     value?: Date
@@ -466,6 +471,7 @@ interface SingleProps extends Omit<PickerProps, "translations"> {
 
 const SingleDatePicker = ({
                               applyOnClose,
+                              applyOnChange,
                               defaultValue,
                               value,
                               onChange,
@@ -475,6 +481,7 @@ const SingleDatePicker = ({
                               disableNavigation,
                               className,
                               showTimePicker,
+                              showText = true,
                               placeholder = "Select date",
                               hasError,
                               translations,
@@ -555,6 +562,11 @@ const SingleDatePicker = ({
             }
         }
         setDate(newDate)
+
+        if( applyOnChange){
+            setOpen(false)
+            onChange?.(date)
+        }
     }
 
     const onTimeChange = (time: TimeValue | null) => {
@@ -599,6 +611,7 @@ const SingleDatePicker = ({
                     ? new Time(defaultValue.getHours(), defaultValue.getMinutes())
                     : new Time(0, 0),
         )
+
     }, [value, defaultValue])
 
     return (
@@ -616,6 +629,7 @@ const SingleDatePicker = ({
                 aria-invalid={props["aria-invalid"]}
                 aria-label={props["aria-label"]}
                 aria-labelledby={props["aria-labelledby"]}
+                showText={showText}
             >
                 {formattedDate}
             </Trigger>
@@ -695,6 +709,8 @@ const SingleDatePicker = ({
 
 interface RangeProps extends PickerProps {
     applyOnClose?: boolean,
+    applyOnChange?: boolean,
+    showText?: boolean,
     presets?: DateRangePreset[]
     defaultValue?: DateRange
     value?: DateRange
@@ -703,6 +719,7 @@ interface RangeProps extends PickerProps {
 
 const RangeDatePicker = ({
                              applyOnClose,
+                             applyOnChange,
                              defaultValue,
                              value,
                              onChange,
@@ -713,6 +730,7 @@ const RangeDatePicker = ({
                              enableYearNavigation = false,
                              locale = enUS,
                              showTimePicker,
+                             showText = true,
                              placeholder = "Select date range",
                              hasError,
                              translations,
@@ -786,6 +804,10 @@ const RangeDatePicker = ({
         }
 
         setRange(newRange)
+
+        if( applyOnChange){
+            onApply();
+        }
     }
 
     const onCancel = (event: React.MouseEvent<HTMLElement> | undefined = undefined ) => {
@@ -922,6 +944,7 @@ const RangeDatePicker = ({
                 disabled={disabled}
                 className={className}
                 hasError={hasError}
+                showText={showText}
                 aria-required={props.required || props["aria-required"]}
                 aria-invalid={props["aria-invalid"]}
                 aria-label={props["aria-label"]}
@@ -1179,7 +1202,9 @@ const validatePresets = (
 // ============================================================================
 
 type SingleDatePickerProps = {
+    applyOnChange?: boolean,
     applyOnClose?: boolean,
+    showText?: boolean,
     presets?: DatePreset[]
     defaultValue?: Date
     value?: Date
@@ -1197,6 +1222,8 @@ const DatePicker = ({ presets, ...props }: SingleDatePickerProps) => {
 DatePicker.displayName = "DatePicker"
 
 type RangeDatePickerProps = {
+    applyOnChange?: boolean,
+    applyOnClose?: boolean,
     presets?: DateRangePreset[]
     defaultValue?: DateRange
     value?: DateRange

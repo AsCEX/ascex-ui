@@ -113,7 +113,7 @@ const SidebarProvider = forwardRef<
                             ...style,
                         } as CSSProperties
                     }
-                    className={cx("flex min-h-svh w-full", className)}
+                    className={cx("flex min-h-svh max-h-screen w-full", className)}
                     ref={ref}
                     {...props}
                 >

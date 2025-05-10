@@ -99,11 +99,13 @@ export {
     SidebarTrigger,
 } from '@components/Sidebar/Sidebar';
 export { default as SpeedDial } from "@components/SpeedDial/SpeedDial"
+export { Switch } from "@components/Switch/Switch";
 
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/Tabs/Tabs";
 export { Textarea, type TextareaProps } from "@components/TextArea/TextArea";
 export { Toast } from "@components/Toast/Toast";
 export { Toaster } from "@components/Toast/Toaster";
+export { Tooltip, type TooltipProps } from "@components/Tooltip/Tooltip";
 export { useToast } from "@hooks/useToast";
 
 export {

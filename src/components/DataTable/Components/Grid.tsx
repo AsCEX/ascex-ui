@@ -1,18 +1,22 @@
 import { ReactNode } from "react";
 import useDataTable from '../Utils/useDataTable';
+import clsx from "clsx";
 
 interface GripProps {
     children: ReactNode
 }
 
 const Grid = ({children}: GripProps) => {
-    const { height } = useDataTable();
+    const { height, cardTemplate } = useDataTable();
     
     // style={ (height) ? {height: height} : {}}
     return (
         <>
-            <div className={"relative overflow-hidden grid-view dark:bg-table-bg-dark bg-table-bg dark:border-table-border-color-dark w-full " + ((height) ? `has-height ` : '')}
-
+            <div className={clsx(
+                "relative overflow-hidden grid-view bg-transparent dark:border-table-border-color-dark w-full ",
+                !cardTemplate && 'overflow-hidden',
+                height && `has-height`,
+            )}
             >
                 {children}
             </div>

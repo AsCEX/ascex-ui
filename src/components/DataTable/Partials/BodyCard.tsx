@@ -21,7 +21,7 @@ function BodyCard() {
                  // onScroll={(e) => setScroll(e)}
             >
                 <div className="flex w-full" >
-                    <div className={"flex flex-col w-full p-4"} >
+                    <div className={"flex flex-col w-full"} >
                         <CardPane items={items}/>
                     </div>
                 </div>

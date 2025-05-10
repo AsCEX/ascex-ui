@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import moment from 'moment';
 import useCalendar from "@hooks/useCalendar";
-import {useState} from "react";
+import {forwardRef, useImperativeHandle, useState} from "react";
 import {
     DateRange
 } from '@components/DatePicker/DatePicker';
@@ -15,11 +15,12 @@ interface CalendarProps {
     year: number
     onChange?: (newDate: Date) => void
     onSelectChange?: (selectedDates: string[]) => void
-    onShowEventDetail?: (eventDetail: TimelogsType | null) => JSX.Element
-    onCloseEventDetail?: () => void
+    onShowEventDetail?: (eventDetail: TimelogsType | null, setOpenModal: (open: boolean) => void) => JSX.Element
+    onCloseEventDetail?: () => void,
+    defaultSelectedEvents?: string[];
 }
 
-const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, onShowEventDetail, onCloseEventDetail, dateRange}: CalendarProps) => {
+const CalendarEvents = ({month, year, calendarEvents, onSelectChange, onShowEventDetail, onCloseEventDetail, dateRange}: CalendarProps, ref: any) => {
 
     const { getMonthDays } = useCalendar();
     const currentDate = moment({ year: year, month: (month ?? 0) - 1 }).toDate();
@@ -35,6 +36,7 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, 
             defaultEvents.push(calendarEvent?.date);
         }
     }
+
     const [selectedDates, setSelectedDates] = useState<string[]>(defaultEvents);
 
     const handleMouseDown = ( date: string ) => {
@@ -67,6 +69,7 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, 
         return null;
     }
     const toggleCheckbox = ( isChecked: boolean, date: string ) => {
+        console.log( 'selectedDates', selectedDates );
         const newSelectedDates = [ ...selectedDates ];
         if( newSelectedDates.includes( date ) ){
             if(!isChecked){
@@ -91,6 +94,23 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, 
         return moment(currentDate).isBetween(start, end, 'days', '[]');
     }
 
+    const selectAll = ( ) => {
+        const selDates = [...selectedDates];
+        days.map((day : any) => {
+            if(inRange(day.date )){
+                if(!selDates.includes(day.date)){
+                    selDates.push(day.date);
+                }
+            }
+        });
+
+        setSelectedDates(selDates);
+        if( onSelectChange ){
+            onSelectChange(selDates);
+        }
+
+    }
+
     const eventDetails = ( day: any ): void => {
         const dayEvent = getEvent(day.date)
         setSelectedEvent(dayEvent);
@@ -99,14 +119,16 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, 
     }
 
     const eventDetailView = (): JSX.Element => {
-        console.log('edv', selectedEvent);
         if( onShowEventDetail ){
-            return onShowEventDetail( selectedEvent );
+            return onShowEventDetail( selectedEvent, setOpenModal );
         }
 
         return <></>;
     }
 
+    useImperativeHandle(ref, () => ({
+        selectAll: () => selectAll(),
+    }));
 
     return (
         <>
@@ -117,50 +139,16 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, 
                         <time dateTime="2022-01">{moment(currentDate).format('MMMM YYYY')}</time>
                     </h1>
                     <div className="flex items-center">
-                        <div className="relative flex items-center rounded-md bg-white dark:bg-gray-lemon-dark-secondary shadow-sm md:items-stretch">
+                        <div
+                            className="relative flex items-center rounded-md bg-white dark:bg-gray-lemon-dark-secondary shadow-sm md:items-stretch">
                             <button type="button"
-                                    className="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 dark:border-gray-lemon-dark-border pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50 dark: dark:hover:bg-gray-lemon-dark-primary"
+                                    className="hidden border rounded-md border-gray-300 dark:border-gray-lemon-dark-border px-3.5 text-sm font-semibold text-gray-900 dark:text-gray-lemon-dark-text hover:bg-gray-50 dark:hover:bg-gray-lemon-dark-primary focus:relative md:block"
                                     onClick={() => {
-                                        if (onChange) {
-                                            const newDate = moment(currentDate).subtract(1, 'M').toDate();
-                                            onChange(newDate);
-                                        }
+                                       selectAll();
                                     }}
-                            >
-                                <span className="sr-only">Previous month</span>
-                                <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fillRule="evenodd"
-                                          d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                                          clipRule="evenodd"/>
-                                </svg>
+                            >Check All
                             </button>
-                            <button type="button"
-                                    className="hidden border-y border-gray-300 dark:border-gray-lemon-dark-border px-3.5 text-sm font-semibold text-gray-900 dark:text-gray-lemon-dark-text hover:bg-gray-50 dark:hover:bg-gray-lemon-dark-primary focus:relative md:block"
-                                    onClick={() => {
-                                        if (onChange) {
-                                            const newDate = moment().startOf('month').toDate();
-                                            onChange(newDate);
-                                        }
-                                    }}
-                            >Today
-                            </button>
-                            <span className="relative -mx-px h-5 w-px bg-gray-300 md:hidden"/>
-                            <button type="button"
-                                    className="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 dark:border-gray-lemon-dark-border pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50 dark:hover:bg-gray-lemon-dark-primary"
-                                    onClick={() => {
-                                        if (onChange) {
-                                            const newDate = moment(currentDate).add(1, 'M').toDate();
-                                            onChange(newDate);
-                                        }
-                                    }}
-                            >
-                                <span className="sr-only">Next month</span>
-                                <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fillRule="evenodd"
-                                          d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                                          clipRule="evenodd"/>
-                                </svg>
-                            </button>
+
                         </div>
                     </div>
                 </header>
@@ -210,7 +198,7 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, 
                                 return <label key={"days-" + index}
                                             htmlFor={"cc_box_" + day.date}
                                             className={clsx(
-                                                "relative px-3 select-none py-2 text-gray-500 cursor-pointer",
+                                                "relative flex flex-col px-3 select-none py-2 text-gray-500 cursor-pointer",
                                                 day.isCurrentMonth ? "bg-white dark:bg-gray-lemon-dark-primary" : "bg-gray-50 dark:bg-gray-lemon-dark-disabled",
                                                 // "[&:has(input:checked)]:border-b-4 [&:has(input:checked)]:border-gray-lemon-dark-calendar-selected",
                                                 !inRange(day.date) ? "opacity-50 !cursor-not-allowed pointer-events-none" : "",
@@ -237,15 +225,15 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, 
 
                                     {
                                         (selectedDates.includes(day.date)) &&
-                                        <ol className="mt-2 w-full absolute bottom-0 left-0 xl:block">
+                                        <ol className="mt-2 w-full ">
                                             <li className={clsx(
-                                                "bg-green-400",
-                                                "xl:h-4"
+                                                "w-full"
                                             )} onClick={() => eventDetails(day)}>
-                                                <a href="#" className="group flex">
+                                                <a href="#" className="group flex bg-green-400">
                                                     <time dateTime=""
-                                                          className="flex-none w-full text-center text-green-800 xl:text-xs group-hover:text-green-900 xl:block">
-                                                        <span>{timeIn}</span><span> - {timeOut}</span>
+                                                          className="flex flex-col w-full text-center text-green-800 xl:text-xs group-hover:text-green-900">
+                                                        <div><span>{timeIn}</span><span> - {timeOut}</span></div>
+                                                        {(dayEvents?.overtime && (dayEvents?.overtime ?? 0) > 0) && <span className={"bg-red-400"}>{dayEvents?.overtime}</span>}
                                                     </time>
                                                 </a>
                                             </li>
@@ -282,4 +270,4 @@ const CalendarEvents = ({month, year, calendarEvents, onChange, onSelectChange, 
     );
 }
 
-export default CalendarEvents;
+export default forwardRef(CalendarEvents);
