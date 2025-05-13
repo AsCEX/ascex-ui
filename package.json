@@ -1,7 +1,7 @@
 {
   "name": "ascex-ui",
   "private": false,
-  "version": "0.2.2",
+  "version": "0.2.3",
   "type": "module",
   "files": [
     "dist"
@@ -50,6 +50,7 @@
     "react-day-picker": "8.10.1",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.0.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.1.5",
     "tailwind-merge": "^3.0.1",
     "tailwind-variants": "^0.3.1",
