@@ -43,6 +43,10 @@ export interface DataTableContextProps {
     name: string,
     items: unknown[],
     options?: DataTableOptionTypes,
+    page?: { currentPage: number, lastPage: number, pageSize: number, totalItems: number },
+    onPageChange?: (page: number) => void,
+    currentPage?: number,
+    setCurrentPage?: (page: number) => void,
 }
 
 const DataTableParams = {

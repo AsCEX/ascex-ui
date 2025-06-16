@@ -1,4 +1,4 @@
-import {createContext} from "react";
+import {createContext, useState} from "react";
 import {DataTableContextProps} from "@components/DataTable/DataTableTypes";
 
 const defaultLeftPaneWidth = 48;
@@ -6,12 +6,21 @@ const defaultLeftPaneWidth = 48;
 // eslint-disable-next-line react-refresh/only-export-components
 export const DataTableContext = createContext<DataTableContextProps>({} as DataTableContextProps);
 
-export const DataTableProvider = ({ cardTemplate, cardHeader, children, options, headers, items, height, name }: DataTableContextProps) => {
+export const DataTableProvider = ({
+                                      cardTemplate,
+                                      cardHeader,
+                                      children,
+                                      options,
+                                      headers,
+                                      items,
+                                      height,
+                                      name,
+                                      onPageChange,
+                                      page
+}: DataTableContextProps) => {
 
-    // const tableOptions = {
-    //     freezePane: 1,
-    //
-    // }
+    const [currentPage, setCurrentPage] = useState(page?.currentPage ?? 1);
+
 
     const buildHeaders = () => {
         let left = 0;
@@ -83,6 +92,8 @@ export const DataTableProvider = ({ cardTemplate, cardHeader, children, options,
     const tableData = {
         cardTemplate,
         cardHeader,
+        currentPage,
+        setCurrentPage,
         name,
         options: {
             ...options,
@@ -96,7 +107,9 @@ export const DataTableProvider = ({ cardTemplate, cardHeader, children, options,
         },
         headers: _headers,
         items,
-        rowNumberWidth: 48
+        rowNumberWidth: 48,
+        onPageChange,
+        page
     };
 
 

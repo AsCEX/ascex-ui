@@ -13,7 +13,7 @@ const Grid = ({children}: GripProps) => {
     return (
         <>
             <div className={clsx(
-                "relative overflow-hidden grid-view bg-transparent dark:border-table-border-color-dark w-full ",
+                "relative overflow-hidden grow grid-view bg-transparent dark:border-table-border-color-dark w-full z-0",
                 !cardTemplate && 'overflow-hidden',
                 height && `has-height`,
             )}

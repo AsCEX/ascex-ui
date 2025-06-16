@@ -28,31 +28,35 @@ function Row({
     const rowHoverIn = (e: React.MouseEvent<HTMLElement>, side: string) => {
         const target = e.target as HTMLElement;
         const rowEl = target.closest(".dataRow");
-        const gridEl = target.closest(".grid-container");
-        const rowIndex = Array.prototype.indexOf.call(rowEl?.parentElement?.children, rowEl);
+        if(rowEl){
+            const gridEl = target.closest(".grid-container");
+            const rowIndex = Array.prototype.indexOf.call(rowEl?.parentElement?.children, rowEl);
 
-        let pane = gridEl?.querySelector('.pane.dataLeftPane > div');
-        if( side === "left"){
-            pane = gridEl?.querySelector('.pane.dataRightPane > div');
+            let pane = gridEl?.querySelector('.pane.dataLeftPane > div');
+            if( side === "left"){
+                pane = gridEl?.querySelector('.pane.dataRightPane > div');
+            }
+
+            rowEl?.classList.add('hover')
+            pane?.children.item(rowIndex)?.classList.add('hover');
         }
-
-        rowEl?.classList.add('hover')
-        pane?.children.item(rowIndex)?.classList.add('hover');
     };
 
     const rowHoverOut = (e: React.MouseEvent<HTMLElement>, side: string) => {
         const target= e.target as HTMLElement;
         const rowEl = target.closest(".dataRow");
-        const gridEl = target.closest(".grid-container");
-        const rowIndex = Array.prototype.indexOf.call(rowEl?.parentElement?.children, rowEl);
+        if(rowEl){
+            const gridEl = target.closest(".grid-container");
+            const rowIndex = Array.prototype.indexOf.call(rowEl?.parentElement?.children, rowEl);
 
-        let pane = gridEl?.querySelector('.pane.dataLeftPane > div');
-        if( side === "left"){
-            pane = gridEl?.querySelector('.pane.dataRightPane > div');
+            let pane = gridEl?.querySelector('.pane.dataLeftPane > div');
+            if( side === "left"){
+                pane = gridEl?.querySelector('.pane.dataRightPane > div');
+            }
+
+            rowEl?.classList.remove('hover')
+            pane?.children.item(rowIndex)?.classList.remove('hover');
         }
-
-        rowEl?.classList.remove('hover')
-        pane?.children.item(rowIndex)?.classList.remove('hover');
     };
 
     const rowHeightCls: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = rowHeight ?? "xs";

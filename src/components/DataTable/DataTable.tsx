@@ -17,7 +17,9 @@ function DataTable( {
     items,
     name,
     loaded = false,
+    onPageChange,
     options,
+    page
 }: DataTableContextProps ){
     const loadingRef = useRef(null);
     const isMobile = useIsMobile();
@@ -32,7 +34,10 @@ function DataTable( {
           cardTemplate={cardTemplate}
           cardHeader={cardHeader}
           headers={headers}
-          items={items} >
+          items={items}
+          onPageChange={onPageChange}
+          page={page}
+      >
         <Grid>
           {!loaded && <DataTableLoader loadingRef={loadingRef}/> }
           {items.length === 0 && <DataTableNotFound/> }
